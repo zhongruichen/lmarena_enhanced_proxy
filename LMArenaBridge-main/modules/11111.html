@@ -1,0 +1,1839 @@
+你说得对，这个程序存在严重的逻辑错误。测试100次全部失败却被归为"完美"是完全错误的。让我深度分析并修复这些问题：
+
+**核心问题：**
+1. 分类逻辑错误 - 只看是否完成100次，不看成功率
+2. 日志太简略 - 看不到每次请求的具体结果
+3. 错误处理不当 - 可能所有请求都失败了但没有正确记录
+
+**深度修复方案：**
+
+````html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暴打gemini一百次 - 增强版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .warning-banner {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        
+        .control-panel {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .control-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .control-input label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .control-input input {
+            width: 80px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .control-input.checkbox {
+            background: #e3f2fd;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        
+        .control-input.checkbox input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-start {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-start:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-stop {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .btn-clear {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-export {
+            background: #28a745;
+            color: white;
+        }
+        
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .progress-section {
+            margin: 30px 0;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .results-section {
+            margin-top: 30px;
+        }
+        
+        .result-group {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .group-title {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .group-count {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-left: 10px;
+        }
+        
+        .perfect { color: #28a745; }
+        .excellent { color: #17a2b8; }
+        .qualified { color: #ffc107; }
+        .unstable { color: #fd7e14; }
+        .error { color: #dc3545; }
+        .manual-stop { color: #6c757d; }
+        .invalid { color: #dc3545; }
+        
+        .key-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .key-item.perfect { border-left-color: #28a745; }
+        .key-item.excellent { border-left-color: #17a2b8; }
+        .key-item.qualified { border-left-color: #ffc107; }
+        .key-item.unstable { border-left-color: #fd7e14; }
+        .key-item.error { border-left-color: #dc3545; }
+        .key-item.manual-stop { border-left-color: #6c757d; }
+        .key-item.invalid { border-left-color: #dc3545; }
+        
+        .key-text {
+            font-family: monospace;
+            font-size: 0.9em;
+            flex: 1;
+            margin-right: 10px;
+            word-break: break-all;
+        }
+        
+        .key-stats {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            font-size: 0.9em;
+        }
+        
+        .copy-btn {
+            padding: 5px 15px;
+            font-size: 0.9em;
+            background: #6c757d;
+        }
+        
+        .copy-btn:hover {
+            background: #5a6268;
+        }
+        
+        .log-section {
+            margin-top: 30px;
+            background: #212529;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #00ff00;
+            padding-left: 10px;
+        }
+        
+        .log-entry.error {
+            color: #ff6b6b;
+            border-left-color: #ff6b6b;
+        }
+        
+        .log-entry.warning {
+            color: #ffc107;
+            border-left-color: #ffc107;
+        }
+        
+        .log-entry.success {
+            color: #00ff00;
+            border-left-color: #00ff00;
+        }
+        
+        .log-entry.info {
+            color: #17a2b8;
+            border-left-color: #17a2b8;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .batch-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #007bff;
+        }
+        
+        .testing-indicator {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .testing-indicator.active {
+            display: flex;
+        }
+        
+        .subgroup {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .subgroup h4 {
+            color: #6c757d;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .current-testing {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .current-testing.active {
+            display: block;
+        }
+        
+        .test-details {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .test-detail-item {
+            flex: 1;
+        }
+        
+        .test-detail-label {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .test-detail-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .time-estimate {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            color: #1976d2;
+        }
+
+        .batch-progress {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #4169e1;
+        }
+        
+        .batch-launch-info {
+            background: #f5f5dc;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            color: #8b4513;
+        }
+        
+        .debug-panel {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .debug-panel h3 {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .debug-info {
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 暴打gemini一百次 - 增强版</h1>
+        
+        <div class="warning-banner">
+            <strong>⚠️ 注意：</strong>
+            <ol style="margin-top: 10px; padding-left: 20px;">
+                <li>如遇CORS错误，请使用浏览器插件禁用CORS检查，或使用代理服务器</li>
+                <li>测试将产生大量请求，请确保你有权限测试这些API密钥</li>
+                <li>每个密钥测试100次，每次间隔20秒，单个密钥最多需要约33分钟</li>
+                <li>默认并发数230，每隔1秒启动一个密钥，启动完需要约4分钟</li>
+                <li>遇到429错误立即停止该密钥测试，API密钥应以 AIzaSy 开头</li>
+                <li><strong style="color: red;">只有成功率达到95%以上且出现429错误在95次以后的密钥才算完美！</strong></li>
+            </ol>
+        </div>
+        
+        <div class="input-section">
+            <h3>输入API密钥（每行一个）</h3>
+            <textarea id="apiKeys" placeholder="请输入Gemini API密钥，每行一个...
+例如：
+AIzaSy...
+AIzaSy..."></textarea>
+            
+            <div class="control-panel">
+                <button class="btn-start" id="startBtn" onclick="startTesting()">
+                    开始测试
+                </button>
+                <button class="btn-stop" id="stopBtn" onclick="stopTesting()" disabled>
+                    停止测试
+                </button>
+                <button class="btn-clear" onclick="clearResults()">
+                    清空结果
+                </button>
+                <button class="btn-export" onclick="exportResults()">
+                    导出报告
+                </button>
+                <div class="control-input">
+                    <label>批次大小：</label>
+                    <input type="number" id="batchSize" value="230" min="1" max="500">
+                </div>
+                <div class="control-input">
+                    <label>请求间隔(秒)：</label>
+                    <input type="number" id="interval" value="20" min="1" max="60">
+                </div>
+                <div class="control-input">
+                    <label>启动延时(毫秒)：</label>
+                    <input type="number" id="launchDelay" value="1000" min="100" max="5000">
+                </div>
+                <div class="control-input">
+                    <label>重试次数：</label>
+                    <input type="number" id="maxRetries" value="3" min="1" max="10">
+                </div>
+                <div class="control-input checkbox">
+                    <input type="checkbox" id="verboseLog" checked>
+                    <label for="verboseLog">详细日志</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="time-estimate" id="timeEstimate" style="display:none;">
+            ⏱️ 预计测试时间：<span id="estimatedTime"></span>
+        </div>
+        
+        <div class="batch-launch-info" id="batchLaunchInfo" style="display:none;">
+            🚀 批次启动进度：<span id="launchProgress"></span>
+        </div>
+        
+        <div class="batch-progress" id="batchProgress" style="display:none;">
+            📊 当前批次进度：<span id="batchProgressText"></span>
+        </div>
+        
+        <div class="current-testing" id="currentTesting" style="display:none;">
+            <strong>当前测试详情</strong>
+            <div class="test-details">
+                <div class="test-detail-item">
+                    <div class="test-detail-label">正在测试</div>
+                    <div class="test-detail-value" id="currentKeyShort">-</div>
+                </div>
+                <div class="test-detail-item">
+                    <div class="test-detail-label">进度</div>
+                    <div class="test-detail-value" id="currentKeyProgress">0/100</div>
+                </div>
+                <div class="test-detail-item">
+                    <div class="test-detail-label">成功率</div>
+                    <div class="test-detail-value" id="currentKeySuccessRate">0%</div>
+                </div>
+                <div class="test-detail-item">
+                    <div class="test-detail-label">状态</div>
+                    <div class="test-detail-value" id="currentKeyStatus">测试中...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-value" id="totalKeys">0</div>
+                <div class="stat-label">总密钥数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="testedKeys">0</div>
+                <div class="stat-label">已测试</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="currentBatch">0</div>
+                <div class="stat-label">当前批次</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalRequests">0</div>
+                <div class="stat-label">总请求数</div>
+            </div>
+        </div>
+        
+        <div class="testing-indicator" id="testingIndicator">
+            <div class="spinner"></div>
+            <span>正在测试中...</span>
+            <span id="currentProgress"></span>
+        </div>
+        
+        <div class="batch-info" id="batchInfo" style="display:none;">
+            <strong>批次信息：</strong>
+            <span id="batchDetails"></span>
+        </div>
+        
+        <div class="progress-section">
+            <h3>总体进度</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">
+                    0%
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <h2>测试结果</h2>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title perfect">✨ 完美 (成功率≥95% 且 429出现在95次后)<span class="group-count" id="perfectCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('perfect')">复制</button>
+                </div>
+                <div id="perfectKeys"></div>
+            </div>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title excellent">🌟 优秀 (成功率≥80% 且 429出现在70次后)<span class="group-count" id="excellentCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('excellent')">复制</button>
+                </div>
+                <div id="excellentKeys"></div>
+            </div>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title qualified">✅ 合格 (成功率≥60% 且 429出现在50次后)<span class="group-count" id="qualifiedCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('qualified')">复制</button>
+                </div>
+                <div id="qualifiedKeys"></div>
+            </div>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title unstable">⚠️ 不稳定 (成功率<60% 或 429过早出现)<span class="group-count" id="unstableCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('unstable')">复制</button>
+                </div>
+                <div id="unstableKeys">
+                    <div class="subgroup">
+                        <h4>子组1 (30-49次时出现429)</h4>
+                        <div id="unstable1"></div>
+                    </div>
+                    <div class="subgroup">
+                        <h4>子组2 (15-29次时出现429)</h4>
+                        <div id="unstable2"></div>
+                    </div>
+                    <div class="subgroup">
+                        <h4>子组3 (0-14次时出现429)</h4>
+                        <div id="unstable3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title invalid">❌ 无效密钥 (认证失败或请求错误)<span class="group-count" id="invalidCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('invalid')">复制</button>
+                </div>
+                <div id="invalidKeys"></div>
+            </div>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title manual-stop">🛑 手动停止<span class="group-count" id="manualStopCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('manualStop')">复制</button>
+                </div>
+                <div id="manualStopKeys"></div>
+            </div>
+            
+            <div class="result-group">
+                <div class="group-header">
+                    <span class="group-title error">⚠️ 其他错误<span class="group-count" id="errorCount">(0)</span></span>
+                    <button class="copy-btn" onclick="copyGroup('error')">复制</button>
+                </div>
+                <div id="errorKeys"></div>
+            </div>
+        </div>
+        
+        <div class="debug-panel" id="debugPanel" style="display:none;">
+            <h3>🔍 调试信息</h3>
+            <div class="debug-info" id="debugInfo"></div>
+        </div>
+        
+        <div class="log-section" id="logSection">
+            <h3>测试日志</h3>
+            <div id="logContent"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 全局状态管理
+        const state = {
+            isRunning: false,
+            testResults: new Map(),
+            currentBatchNum: 0,
+            totalKeysCount: 0,
+            testedKeysCount: 0,
+            totalRequestsCount: 0,
+            currentAbortController: null,
+            startTime: null,
+            keyAbortControllers: new Map(),
+            activePromises: new Set(),
+            updateTimer: null,
+            renderRequestId: null,
+            retryDelays: [1000, 2000, 4000, 8000],
+            finalUpdatePending: false,
+            finalCategories: null,
+            currentBatchStarted: 0,
+            currentBatchCompleted: 0,
+            currentTestingKey: null,
+            verboseLogging: true
+        };
+        
+        const TEST_COUNT = 100;
+        const MAX_LOG_ENTRIES = 500;
+        
+        // 检查 AbortController 支持
+        const supportsAbortController = typeof AbortController !== 'undefined';
+        
+        function addLog(message, type = 'info') {
+            const logContent = document.getElementById('logContent');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.textContent = `[${timestamp}] ${message}`;
+            logContent.appendChild(entry);
+            logContent.scrollTop = logContent.scrollHeight;
+            
+            while (logContent.children.length > MAX_LOG_ENTRIES) {
+                logContent.removeChild(logContent.firstChild);
+            }
+        }
+        
+        function updateCurrentTestingDisplay(keyData) {
+            const testingDiv = document.getElementById('currentTesting');
+            if (!keyData) {
+                testingDiv.style.display = 'none';
+                return;
+            }
+            
+            testingDiv.style.display = 'block';
+            const shortKey = keyData.key.substring(0, 20) + '...';
+            const successRate = keyData.totalTests > 0 ? 
+                (keyData.successCount / keyData.totalTests * 100).toFixed(1) : 0;
+            
+            document.getElementById('currentKeyShort').textContent = shortKey;
+            document.getElementById('currentKeyProgress').textContent = `${keyData.totalTests}/${TEST_COUNT}`;
+            document.getElementById('currentKeySuccessRate').textContent = `${successRate}%`;
+            
+            let status = '测试中...';
+            if (keyData.failAt) {
+                status = `第${keyData.failAt}次出现429`;
+            } else if (keyData.errorType) {
+                status = `错误: ${keyData.errorType}`;
+            } else if (keyData.totalTests === TEST_COUNT) {
+                status = '完成100次';
+            }
+            document.getElementById('currentKeyStatus').textContent = status;
+        }
+        
+        async function testSingleKey(apiKey, testNum, abortSignal) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{
+                    parts: [{
+                        text: "Hello, please respond with 'Hi'"
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.1,
+                    maxOutputTokens: 10
+                }
+            };
+            
+            state.totalRequestsCount++;
+            updateStats();
+            
+            let controller = null;
+            let timeoutId = null;
+            const verboseLog = document.getElementById('verboseLog').checked;
+            
+            try {
+                if (supportsAbortController) {
+                    controller = new AbortController();
+                    
+                    if (abortSignal && abortSignal.aborted) {
+                        return { success: false, error: 'aborted' };
+                    }
+                    
+                    if (abortSignal) {
+                        const abortHandler = () => {
+                            if (controller && !controller.signal.aborted) {
+                                controller.abort();
+                            }
+                        };
+                        abortSignal.addEventListener('abort', abortHandler, { once: true });
+                    }
+                }
+                
+                timeoutId = setTimeout(() => {
+                    if (controller && !controller.signal.aborted) {
+                        controller.abort();
+                    }
+                }, 30000);
+                
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                };
+                
+                if (controller) {
+                    options.signal = controller.signal;
+                }
+                
+                const response = await fetch(url, options);
+                
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                    timeoutId = null;
+                }
+                
+                // 处理响应
+                if (response.status === 429) {
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 收到429错误 - 速率限制`, 'warning');
+                    }
+                    return { success: false, error: '429', status: 429 };
+                } else if (response.status === 401 || response.status === 403) {
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 认证失败 (${response.status})`, 'error');
+                    }
+                    return { success: false, error: 'invalid_key', status: response.status };
+                } else if (response.status === 400) {
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 请求格式错误`, 'error');
+                    }
+                    return { success: false, error: 'bad_request', status: 400 };
+                } else if (response.status >= 500) {
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 服务器错误 (${response.status})`, 'error');
+                    }
+                    return { success: false, error: 'server_error', status: response.status };
+                } else if (response.ok) {
+                    try {
+                        const data = await response.json();
+                        if (data && typeof data === 'object') {
+                            if (verboseLog && testNum % 10 === 0) {
+                                addLog(`[请求 #${testNum}] 成功 ✓`, 'success');
+                            }
+                            return { success: true };
+                        }
+                        if (verboseLog) {
+                            addLog(`[请求 #${testNum}] 响应格式无效`, 'error');
+                        }
+                        return { success: false, error: 'invalid_response' };
+                    } catch (e) {
+                        if (verboseLog) {
+                            addLog(`[请求 #${testNum}] 解析响应失败`, 'error');
+                        }
+                        return { success: false, error: 'parse_error' };
+                    }
+                } else {
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 未知状态码: ${response.status}`, 'error');
+                    }
+                    return { success: false, error: `status_${response.status}`, status: response.status };
+                }
+                
+            } catch (error) {
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+                
+                const errorMessage = error?.message?.toLowerCase() || '';
+                const errorName = error?.name?.toLowerCase() || '';
+                
+                if (errorName === 'aborterror' || errorMessage.includes('abort')) {
+                    if (abortSignal && abortSignal.aborted) {
+                        return { success: false, error: 'aborted' };
+                    }
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 超时`, 'warning');
+                    }
+                    return { success: false, error: 'timeout' };
+                }
+                
+                if (errorName === 'typeerror' || errorMessage.includes('failed to fetch')) {
+                    if (verboseLog) {
+                        addLog(`[请求 #${testNum}] 网络错误或CORS问题`, 'error');
+                    }
+                    return { success: false, error: 'network' };
+                }
+                
+                if (verboseLog) {
+                    addLog(`[请求 #${testNum}] 未知错误: ${errorMessage}`, 'error');
+                }
+                return { success: false, error: 'unknown', details: errorMessage };
+            }
+        }
+        
+        async function testKeyMultipleTimes(apiKey, keyIndex, batchSize) {
+            const interval = parseInt(document.getElementById('interval').value) * 1000;
+            const maxRetries = parseInt(document.getElementById('maxRetries').value);
+            const verboseLog = document.getElementById('verboseLog').checked;
+            
+            let keyAbortController = null;
+            if (supportsAbortController) {
+                keyAbortController = new AbortController();
+                state.keyAbortControllers.set(apiKey, keyAbortController);
+            }
+            
+            const keyResult = {
+                key: apiKey,
+                successCount: 0,
+                failAt: null,
+                errorType: null,
+                totalTests: 0,
+                firstErrorAt: null,
+                consecutiveErrors: 0,
+                stoppedByUser: false,
+                networkErrors: 0,
+                timeoutErrors: 0,
+                corsErrors: 0,
+                serverErrors: 0,
+                successRate: 0
+            };
+            
+            state.currentTestingKey = keyResult;
+            
+            addLog(`[密钥 ${keyIndex}/${batchSize}] 开始测试: ${apiKey.substring(0, 20)}...`, 'info');
+            
+            try {
+                for (let i = 1; i <= TEST_COUNT; i++) {
+                    if (!state.isRunning) {
+                        keyResult.stoppedByUser = true;
+                        break;
+                    }
+                    
+                    keyResult.totalTests = i;
+                    updateBatchProgress();
+                    updateCurrentTestingDisplay(keyResult);
+                    
+                    let retryCount = 0;
+                    let result = null;
+                    
+                    while (retryCount <= maxRetries) {
+                        result = await testSingleKey(apiKey, i, keyAbortController?.signal);
+                        
+                        if (result.success) {
+                            break;
+                        }
+                        
+                        // 不需要重试的错误
+                        if (result.error === '429' || 
+                            result.error === 'invalid_key' || 
+                            result.error === 'bad_request' ||
+                            result.error === 'aborted') {
+                            break;
+                        }
+                        
+                        // 可重试的错误
+                        if (result.error === 'timeout' || 
+                            result.error === 'network' || 
+                            result.error === 'server_error') {
+                            
+                            retryCount++;
+                            
+                            if (retryCount <= maxRetries) {
+                                const retryDelay = state.retryDelays[Math.min(retryCount - 1, state.retryDelays.length - 1)];
+                                if (verboseLog) {
+                                    addLog(`[密钥 ${keyIndex}] 第${i}次请求失败，${retryDelay/1000}秒后重试...`, 'warning');
+                                }
+                                await new Promise(resolve => setTimeout(resolve, retryDelay));
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    
+                    // 处理结果
+                    if (result.success) {
+                        keyResult.successCount++;
+                        keyResult.consecutiveErrors = 0;
+                    } else {
+                        if (!keyResult.firstErrorAt) {
+                            keyResult.firstErrorAt = i;
+                        }
+                        
+                        // 统计错误
+                        if (result.error === 'timeout') keyResult.timeoutErrors++;
+                        if (result.error === 'network') keyResult.networkErrors++;
+                        if (result.error === 'server_error') keyResult.serverErrors++;
+                        
+                        // 处理特定错误
+                        if (result.error === 'aborted') {
+                            keyResult.stoppedByUser = true;
+                            break;
+                        } else if (result.error === '429') {
+                            keyResult.failAt = i;
+                            keyResult.errorType = '429';
+                            addLog(`[密钥 ${keyIndex}] 在第 ${i} 次出现429错误，停止测试`, 'warning');
+                            break;
+                        } else if (result.error === 'invalid_key') {
+                            keyResult.errorType = 'invalid_key';
+                            addLog(`[密钥 ${keyIndex}] 无效密钥`, 'error');
+                            break;
+                        } else if (result.error === 'bad_request') {
+                            keyResult.errorType = 'bad_request';
+                            addLog(`[密钥 ${keyIndex}] 请求格式错误`, 'error');
+                            break;
+                        } else if (retryCount > maxRetries) {
+                            keyResult.errorType = 'max_retries_exceeded';
+                            addLog(`[密钥 ${keyIndex}] 达到最大重试次数`, 'error');
+                            break;
+                        }
+                    }
+                    
+                    // 计算成功率
+                    keyResult.successRate = keyResult.totalTests > 0 ? 
+                        (keyResult.successCount / keyResult.totalTests * 100) : 0;
+                    
+                    // 请求间隔
+                    if (i < TEST_COUNT && state.isRunning && !keyResult.failAt && !keyResult.errorType) {
+                        await new Promise(resolve => setTimeout(resolve, interval));
+                    }
+                }
+            } catch (error) {
+                console.error('测试密钥时发生未预期错误:', error);
+                keyResult.errorType = 'unexpected_error';
+                addLog(`[密钥 ${keyIndex}] 发生未预期错误: ${error.message}`, 'error');
+            } finally {
+                if (keyAbortController) {
+                    state.keyAbortControllers.delete(apiKey);
+                }
+                state.currentBatchCompleted++;
+                updateBatchProgress();
+                updateCurrentTestingDisplay(null);
+            }
+            
+            // 最终成功率
+            keyResult.successRate = keyResult.totalTests > 0 ? 
+                (keyResult.successCount / keyResult.totalTests * 100) : 0;
+            
+            const statusText = keyResult.stoppedByUser ? '(手动停止)' : 
+                              keyResult.failAt ? `(第${keyResult.failAt}次出现429)` :
+                              keyResult.errorType ? `(${keyResult.errorType})` : 
+                              keyResult.totalTests === 100 ? '(完成100次)' : `(测试${keyResult.totalTests}次)`;
+            
+            addLog(`[密钥 ${keyIndex}] 测试完成: ${keyResult.successCount}/${keyResult.totalTests} 成功 (${keyResult.successRate.toFixed(1)}%) ${statusText}`, 
+                   keyResult.successRate >= 60 ? 'success' : 'warning');
+            
+            return keyResult;
+        }
+        
+        async function processBatch(keys, batchNum, totalBatches) {
+            const launchDelay = parseInt(document.getElementById('launchDelay').value) || 1000;
+            const results = [];
+            
+            state.currentBatchStarted = 0;
+            state.currentBatchCompleted = 0;
+            
+            addLog(`===== 开始第 ${batchNum}/${totalBatches} 批 =====`);
+            addLog(`本批共 ${keys.length} 个密钥，每隔 ${launchDelay}ms 启动一个`);
+            
+            document.getElementById('batchLaunchInfo').style.display = 'block';
+            document.getElementById('batchProgress').style.display = 'block';
+            
+            const promises = [];
+            for (let i = 0; i < keys.length; i++) {
+                if (!state.isRunning) break;
+                
+                if (i > 0) {
+                    await new Promise(resolve => setTimeout(resolve, launchDelay));
+                }
+                
+                const key = keys[i];
+                state.currentBatchStarted++;
+                
+                document.getElementById('launchProgress').textContent = 
+                    `已启动 ${state.currentBatchStarted}/${keys.length} 个密钥`;
+                
+                if (state.currentBatchStarted % 10 === 0 || state.currentBatchStarted === keys.length) {
+                    addLog(`已启动 ${state.currentBatchStarted}/${keys.length} 个密钥...`);
+                }
+                
+                const promise = testKeyMultipleTimes(key, i + 1, keys.length)
+                    .then(result => {
+                        if (result) {
+                            state.testResults.set(result.key, result);
+                            state.testedKeysCount++;
+                            results.push(result);
+                            
+                            updateStats();
+                            updateProgress();
+                            const allResults = Array.from(state.testResults.values());
+                            const categories = categorizeResults(allResults);
+                            state.finalCategories = categories;
+                            displayResults(categories);
+                        }
+                        return result;
+                    })
+                    .catch(error => {
+                        console.error('处理密钥时出错:', error);
+                        addLog(`处理密钥时出错: ${error.message}`, 'error');
+                        state.testedKeysCount++;
+                        state.currentBatchCompleted++;
+                        updateBatchProgress();
+                        return null;
+                    });
+                
+                promises.push(promise);
+                state.activePromises.add(promise);
+            }
+            
+            document.getElementById('batchLaunchInfo').style.display = 'none';
+            addLog(`本批 ${promises.length} 个密钥全部启动完成，等待测试完成...`);
+            
+            const startWaitTime = Date.now();
+            await Promise.all(promises);
+            const waitTime = Math.floor((Date.now() - startWaitTime) / 1000);
+            
+            promises.forEach(p => state.activePromises.delete(p));
+            
+            document.getElementById('batchProgress').style.display = 'none';
+            addLog(`第 ${batchNum} 批处理完成，耗时 ${Math.floor(waitTime / 60)}分${waitTime % 60}秒`);
+            addLog(`===== 第 ${batchNum}/${totalBatches} 批结束 =====`);
+            
+            return results;
+        }
+        
+        function updateBatchProgress() {
+            if (state.currentBatchStarted > 0) {
+                const progress = `${state.currentBatchCompleted}/${state.currentBatchStarted} 个密钥完成测试`;
+                document.getElementById('batchProgressText').textContent = progress;
+            }
+        }
+        
+        function categorizeResults(results) {
+            const categories = {
+                perfect: [],
+                excellent: [],
+                qualified: [],
+                unstable: { group1: [], group2: [], group3: [] },
+                invalid: [],
+                error: [],
+                manualStop: []
+            };
+            
+            const processedKeys = new Set();
+            
+            results.forEach(result => {
+                if (processedKeys.has(result.key)) {
+                    return;
+                }
+                processedKeys.add(result.key);
+                
+                // 调试信息
+                console.log(`分类密钥: ${result.key.substring(0, 20)}...`, {
+                    successRate: result.successRate,
+                    failAt: result.failAt,
+                    totalTests: result.totalTests,
+                    successCount: result.successCount,
+                    errorType: result.errorType
+                });
+                
+                // 首先检查是否是无效密钥
+                if (result.errorType === 'invalid_key' || result.errorType === 'bad_request') {
+                    categories.invalid.push(result);
+                }
+                // 手动停止
+                else if (result.stoppedByUser) {
+                    categories.manualStop.push(result);
+                }
+                // 其他错误（网络、超时等）
+                else if (result.errorType && result.errorType !== '429') {
+                    categories.error.push(result);
+                }
+                // 根据成功率和429出现时机分类
+                else if (result.failAt) {
+                    // 有429错误，根据成功率和出现时机综合判断
+                    const successRate = result.successRate;
+                    
+                    if (successRate >= 95 && result.failAt >= 95) {
+                        categories.perfect.push(result);
+                    } else if (successRate >= 80 && result.failAt >= 70) {
+                        categories.excellent.push(result);
+                    } else if (successRate >= 60 && result.failAt >= 50) {
+                        categories.qualified.push(result);
+                    } else if (result.failAt >= 30) {
+                        categories.unstable.group1.push(result);
+                    } else if (result.failAt >= 15) {
+                        categories.unstable.group2.push(result);
+                    } else {
+                        categories.unstable.group3.push(result);
+                    }
+                }
+                // 完成100次测试没有429
+                else if (result.totalTests === 100) {
+                    // 根据成功率判断
+                    const successRate = result.successRate;
+                    
+                    if (successRate >= 95) {
+                        categories.perfect.push(result);
+                    } else if (successRate >= 80) {
+                        categories.excellent.push(result);
+                    } else if (successRate >= 60) {
+                        categories.qualified.push(result);
+                    } else {
+                        // 成功率太低，归为不稳定
+                        categories.unstable.group3.push(result);
+                    }
+                }
+                // 其他情况
+                else {
+                    categories.error.push(result);
+                }
+            });
+            
+            // 输出调试信息
+            console.log('分类结果:', {
+                perfect: categories.perfect.length,
+                excellent: categories.excellent.length,
+                qualified: categories.qualified.length,
+                unstable: categories.unstable.group1.length + categories.unstable.group2.length + categories.unstable.group3.length,
+                invalid: categories.invalid.length,
+                error: categories.error.length,
+                manualStop: categories.manualStop.length
+            });
+            
+            return categories;
+        }
+        
+        function displayResults(categories) {
+            if (state.finalUpdatePending) {
+                doDisplayResults(categories);
+                state.finalUpdatePending = false;
+                return;
+            }
+            
+            if (state.updateTimer) {
+                clearTimeout(state.updateTimer);
+            }
+            
+            state.updateTimer = setTimeout(() => {
+                doDisplayResults(categories);
+            }, 100);
+        }
+        
+        function doDisplayResults(categories) {
+            if (state.renderRequestId) {
+                cancelAnimationFrame(state.renderRequestId);
+                state.renderRequestId = null;
+            }
+            
+            state.renderRequestId = requestAnimationFrame(() => {
+                const fragments = {
+                    perfect: document.createDocumentFragment(),
+                    excellent: document.createDocumentFragment(),
+                    qualified: document.createDocumentFragment(),
+                    unstable1: document.createDocumentFragment(),
+                    unstable2: document.createDocumentFragment(),
+                    unstable3: document.createDocumentFragment(),
+                    invalid: document.createDocumentFragment(),
+                    error: document.createDocumentFragment(),
+                    manualStop: document.createDocumentFragment()
+                };
+                
+                const createKeyElements = (keys, fragment, className) => {
+                    keys.forEach(keyData => {
+                        const keyItem = document.createElement('div');
+                        keyItem.className = `key-item ${className}`;
+                        keyItem.setAttribute('data-full-key', keyData.key);
+                        
+                        let statusText = '';
+                        let statusColor = '#17a2b8';
+                        
+                        if (keyData.failAt) {
+                            statusText = `第${keyData.failAt}次出现429`;
+                            statusColor = '#dc3545';
+                        } else if (keyData.totalTests === 100) {
+                            statusText = `完成100次`;
+                            statusColor = '#28a745';
+                        } else if (keyData.errorType === 'invalid_key') {
+                            statusText = `无效密钥`;
+                            statusColor = '#dc3545';
+                        } else if (keyData.errorType === 'bad_request') {
+                            statusText = `请求错误`;
+                            statusColor = '#dc3545';
+                        } else if (keyData.errorType === 'network') {
+                            statusText = `网络错误`;
+                            statusColor = '#dc3545';
+                        } else if (keyData.errorType === 'max_retries_exceeded') {
+                            statusText = `重试失败`;
+                            statusColor = '#dc3545';
+                        } else if (keyData.errorType) {
+                            statusText = `错误: ${keyData.errorType}`;
+                            statusColor = '#dc3545';
+                        } else if (keyData.stoppedByUser) {
+                            statusText = `手动停止`;
+                            statusColor = '#fd7e14';
+                        } else {
+                            statusText = `测试${keyData.totalTests}次`;
+                            statusColor = '#17a2b8';
+                        }
+                        
+                        const successRate = keyData.successRate ? keyData.successRate.toFixed(1) : '0.0';
+                        const rateColor = keyData.successRate >= 80 ? '#28a745' : 
+                                        keyData.successRate >= 60 ? '#ffc107' : '#dc3545';
+                        
+                        const displayKey = keyData.key.substring(0, 20) + (keyData.key.length > 20 ? '...' : '');
+                        
+                        keyItem.innerHTML = `
+                            <span class="key-text">${displayKey}</span>
+                            <div class="key-stats">
+                                <span>成功: ${keyData.successCount}/${keyData.totalTests}</span>
+                                <span style="color: ${rateColor}; font-weight: bold;">${successRate}%</span>
+                                <span style="color: ${statusColor};">${statusText}</span>
+                            </div>
+                        `;
+                        
+                        fragment.appendChild(keyItem);
+                    });
+                };
+                
+                createKeyElements(categories.perfect, fragments.perfect, 'perfect');
+                createKeyElements(categories.excellent, fragments.excellent, 'excellent');
+                createKeyElements(categories.qualified, fragments.qualified, 'qualified');
+                createKeyElements(categories.unstable.group1, fragments.unstable1, 'unstable');
+                createKeyElements(categories.unstable.group2, fragments.unstable2, 'unstable');
+                createKeyElements(categories.unstable.group3, fragments.unstable3, 'unstable');
+                createKeyElements(categories.invalid, fragments.invalid, 'invalid');
+                createKeyElements(categories.error, fragments.error, 'error');
+                createKeyElements(categories.manualStop, fragments.manualStop, 'manual-stop');
+                
+                const updateContainer = (id, fragment) => {
+                    const container = document.getElementById(id);
+                    if (container) {
+                        container.innerHTML = '';
+                        container.appendChild(fragment);
+                    }
+                };
+                
+                updateContainer('perfectKeys', fragments.perfect);
+                updateContainer('excellentKeys', fragments.excellent);
+                updateContainer('qualifiedKeys', fragments.qualified);
+                updateContainer('unstable1', fragments.unstable1);
+                updateContainer('unstable2', fragments.unstable2);
+                updateContainer('unstable3', fragments.unstable3);
+                updateContainer('invalidKeys', fragments.invalid);
+                updateContainer('errorKeys', fragments.error);
+                updateContainer('manualStopKeys', fragments.manualStop);
+                
+                document.getElementById('perfectCount').textContent = `(${categories.perfect.length})`;
+                document.getElementById('excellentCount').textContent = `(${categories.excellent.length})`;
+                document.getElementById('qualifiedCount').textContent = `(${categories.qualified.length})`;
+                const unstableTotal = categories.unstable.group1.length + 
+                                    categories.unstable.group2.length + 
+                                    categories.unstable.group3.length;
+                document.getElementById('unstableCount').textContent = `(${unstableTotal})`;
+                document.getElementById('invalidCount').textContent = `(${categories.invalid.length})`;
+                document.getElementById('errorCount').textContent = `(${categories.error.length})`;
+                document.getElementById('manualStopCount').textContent = `(${categories.manualStop.length})`;
+                
+                state.renderRequestId = null;
+                state.updateTimer = null;
+            });
+        }
+        
+        function updateStats() {
+            document.getElementById('totalKeys').textContent = state.totalKeysCount;
+            document.getElementById('testedKeys').textContent = state.testedKeysCount;
+            document.getElementById('currentBatch').textContent = state.currentBatchNum;
+            document.getElementById('totalRequests').textContent = state.totalRequestsCount;
+        }
+        
+        function updateProgress() {
+            const progress = state.totalKeysCount > 0 ? 
+                (state.testedKeysCount / state.totalKeysCount * 100).toFixed(1) : 0;
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${progress}%`;
+            progressFill.textContent = `${progress}%`;
+            
+            if (state.startTime && state.isRunning) {
+                const elapsed = (Date.now() - state.startTime) / 1000;
+                if (state.testedKeysCount > 0) {
+                    const avgTimePerKey = elapsed / state.testedKeysCount;
+                    const remainingKeys = state.totalKeysCount - state.testedKeysCount;
+                    const remainingSeconds = Math.max(0, Math.floor(avgTimePerKey * remainingKeys));
+                    
+                    const hours = Math.floor(remainingSeconds / 3600);
+                    const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                    const seconds = Math.floor(remainingSeconds % 60);
+                    
+                    let timeText = '';
+                    if (hours > 0) timeText += `${hours}小时`;
+                    if (minutes > 0) timeText += `${minutes}分`;
+                    timeText += `${seconds}秒`;
+                    
+                    document.getElementById('currentProgress').textContent = `剩余时间: ${timeText}`;
+                }
+            }
+        }
+        
+        async function startTesting() {
+            const keysText = document.getElementById('apiKeys').value.trim();
+            if (!keysText) {
+                alert('请输入API密钥！');
+                return;
+            }
+            
+            const allKeys = keysText.split('\n')
+                .map(key => key.trim())
+                .filter(key => key && key.startsWith('AIzaSy'));
+            
+            const uniqueKeys = [...new Set(allKeys)];
+            
+            if (uniqueKeys.length === 0) {
+                alert('没有有效的API密钥！Gemini API密钥应以 AIzaSy 开头。');
+                return;
+            }
+            
+            const batchSize = parseInt(document.getElementById('batchSize').value) || 230;
+            const interval = parseInt(document.getElementById('interval').value) || 20;
+            const launchDelay = parseInt(document.getElementById('launchDelay').value) || 1000;
+            state.verboseLogging = document.getElementById('verboseLog').checked;
+            
+            const totalBatches = Math.ceil(uniqueKeys.length / batchSize);
+            
+            const launchTimePerBatch = (Math.min(batchSize, uniqueKeys.length) - 1) * launchDelay / 1000;
+            const maxTestTimePerKey = 50 * interval;
+            const totalEstimatedTime = totalBatches * (launchTimePerBatch + maxTestTimePerKey);
+            const estimatedMinutes = Math.ceil(totalEstimatedTime / 60);
+            const estimatedHours = Math.floor(estimatedMinutes / 60);
+            const remainingMinutes = estimatedMinutes % 60;
+            
+            const timeText = estimatedHours > 0 ? 
+                `${estimatedHours}小时${remainingMinutes}分钟` : 
+                `${estimatedMinutes}分钟`;
+            
+            document.getElementById('estimatedTime').textContent = timeText;
+            document.getElementById('timeEstimate').style.display = 'block';
+            
+            if (!confirm(`即将测试 ${uniqueKeys.length} 个密钥
+批次大小：${batchSize}
+总批次数：${totalBatches}
+请求间隔：${interval} 秒
+启动延时：${launchDelay} 毫秒
+详细日志：${state.verboseLogging ? '开启' : '关闭'}
+预计时间：约 ${timeText}
+
+⚠️ 注意：只有成功率≥95%且429出现在95次后的密钥才算完美！
+
+确定开始吗？`)) {
+                document.getElementById('timeEstimate').style.display = 'none';
+                return;
+            }
+            
+            // 重置状态
+            state.isRunning = true;
+            state.totalKeysCount = uniqueKeys.length;
+            state.testedKeysCount = 0;
+            state.currentBatchNum = 0;
+            state.totalRequestsCount = 0;
+            state.testResults.clear();
+            state.keyAbortControllers.clear();
+            state.activePromises.clear();
+            state.startTime = Date.now();
+            state.finalUpdatePending = false;
+            state.finalCategories = null;
+            
+            if (supportsAbortController) {
+                state.currentAbortController = new AbortController();
+            }
+            
+            if (state.updateTimer) {
+                clearTimeout(state.updateTimer);
+                state.updateTimer = null;
+            }
+            
+            if (state.renderRequestId) {
+                cancelAnimationFrame(state.renderRequestId);
+                state.renderRequestId = null;
+            }
+            
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+            document.getElementById('testingIndicator').classList.add('active');
+            document.getElementById('batchInfo').style.display = 'block';
+            
+            updateStats();
+            updateProgress();
+            
+            addLog(`========== 开始测试 ==========`);
+            addLog(`总密钥数：${uniqueKeys.length}`);
+            addLog(`批次大小：${batchSize}`);
+            addLog(`总批次数：${totalBatches}`);
+            addLog(`请求间隔：${interval}秒`);
+            addLog(`启动延时：${launchDelay}ms`);
+            addLog(`详细日志：${state.verboseLogging ? '开启' : '关闭'}`);
+            
+            try {
+                for (let i = 0; i < uniqueKeys.length; i += batchSize) {
+                    if (!state.isRunning) break;
+                    
+                    state.currentBatchNum++;
+                    const batch = uniqueKeys.slice(i, Math.min(i + batchSize, uniqueKeys.length));
+                    const batchDetails = `第 ${state.currentBatchNum}/${totalBatches} 批，包含 ${batch.length} 个密钥 (${i+1}-${Math.min(i+batchSize, uniqueKeys.length)}/${uniqueKeys.length})`;
+                    document.getElementById('batchDetails').textContent = batchDetails;
+                    
+                    await processBatch(batch, state.currentBatchNum, totalBatches);
+                    
+                    if (state.isRunning && state.currentBatchNum < totalBatches) {
+                        addLog(`准备开始第 ${state.currentBatchNum + 1} 批...`);
+                    }
+                }
+            } catch (error) {
+                console.error('测试过程中发生错误:', error);
+                addLog('测试过程中发生错误: ' + error.message, 'error');
+            } finally {
+                state.finalUpdatePending = true;
+                const allResults = Array.from(state.testResults.values());
+                const categories = categorizeResults(allResults);
+                state.finalCategories = categories;
+                displayResults(categories);
+                
+                state.isRunning = false;
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                document.getElementById('testingIndicator').classList.remove('active');
+                document.getElementById('currentTesting').style.display = 'none';
+                document.getElementById('timeEstimate').style.display = 'none';
+                document.getElementById('batchLaunchInfo').style.display = 'none';
+                document.getElementById('batchProgress').style.display = 'none';
+                
+                if (state.testedKeysCount === uniqueKeys.length) {
+                    addLog('========== 所有测试完成 ==========');
+                    const finalCategories = state.finalCategories || categories;
+                    const summary = `
+测试完成！总计：${uniqueKeys.length} 个密钥
+✨ 完美(成功率≥95% 且 429≥95次)：${finalCategories.perfect.length}
+🌟 优秀(成功率≥80% 且 429≥70次)：${finalCategories.excellent.length}
+✅ 合格(成功率≥60% 且 429≥50次)：${finalCategories.qualified.length}
+⚠️ 不稳定(成功率<60% 或 429过早)：${finalCategories.unstable.group1.length + finalCategories.unstable.group2.length + finalCategories.unstable.group3.length}
+❌ 无效密钥：${finalCategories.invalid.length}
+⚠️ 其他错误：${finalCategories.error.length}
+🛑 手动停止：${finalCategories.manualStop.length}
+总请求数：${state.totalRequestsCount}
+                    `;
+                    alert(summary.trim());
+                } else {
+                    addLog('========== 测试已停止 ==========', 'warning');
+                }
+                
+                state.currentAbortController = null;
+                state.startTime = null;
+            }
+        }
+        
+        async function stopTesting() {
+            state.isRunning = false;
+            
+            if (supportsAbortController) {
+                if (state.currentAbortController) {
+                    try {
+                        state.currentAbortController.abort();
+                    } catch (e) {
+                        console.error('Error aborting main controller:', e);
+                    }
+                    state.currentAbortController = null;
+                }
+                
+                for (const [key, controller] of state.keyAbortControllers) {
+                    try {
+                        controller.abort();
+                    } catch (e) {
+                        console.error('Error aborting key controller:', e);
+                    }
+                }
+                state.keyAbortControllers.clear();
+            }
+            
+            if (state.activePromises.size > 0) {
+                addLog(`等待 ${state.activePromises.size} 个任务完成...`, 'warning');
+                try {
+                    await Promise.allSettled(Array.from(state.activePromises));
+                } catch (e) {
+                    console.error('Error waiting for active promises:', e);
+                }
+                state.activePromises.clear();
+            }
+            
+            state.finalUpdatePending = true;
+            const allResults = Array.from(state.testResults.values());
+            const categories = categorizeResults(allResults);
+            state.finalCategories = categories;
+            displayResults(categories);
+            
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            document.getElementById('testingIndicator').classList.remove('active');
+            document.getElementById('currentTesting').style.display = 'none';
+            document.getElementById('timeEstimate').style.display = 'none';
+            document.getElementById('batchLaunchInfo').style.display = 'none';
+            document.getElementById('batchProgress').style.display = 'none';
+            state.startTime = null;
+            
+            addLog('测试已停止', 'warning');
+        }
+        
+        function clearResults() {
+            if (state.isRunning) {
+                alert('请先停止测试！');
+                return;
+            }
+            
+            if (!confirm('确定要清空所有测试结果吗？')) {
+                return;
+            }
+            
+            state.testResults.clear();
+            state.keyAbortControllers.clear();
+            state.activePromises.clear();
+            state.finalCategories = null;
+            
+            if (state.updateTimer) {
+                clearTimeout(state.updateTimer);
+                state.updateTimer = null;
+            }
+            
+            if (state.renderRequestId) {
+                cancelAnimationFrame(state.renderRequestId);
+                state.renderRequestId = null;
+            }
+            
+            ['perfectKeys', 'excellentKeys', 'qualifiedKeys', 
+             'unstable1', 'unstable2', 'unstable3', 
+             'invalidKeys', 'errorKeys', 'manualStopKeys', 'logContent'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.innerHTML = '';
+            });
+            
+            ['perfectCount', 'excellentCount', 'qualifiedCount', 
+             'unstableCount', 'invalidCount', 'errorCount', 'manualStopCount'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = '(0)';
+            });
+            
+            state.totalKeysCount = 0;
+            state.testedKeysCount = 0;
+            state.currentBatchNum = 0;
+            state.totalRequestsCount = 0;
+            updateStats();
+            
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = '0%';
+            progressFill.textContent = '0%';
+            
+            document.getElementById('batchInfo').style.display = 'none';
+            document.getElementById('timeEstimate').style.display = 'none';
+            
+            addLog('已清空所有结果');
+        }
+        
+        function copyGroup(groupName) {
+            let keys = [];
+            
+            switch(groupName) {
+                case 'perfect':
+                    keys = extractKeysFromElement('perfectKeys');
+                    break;
+                case 'excellent':
+                    keys = extractKeysFromElement('excellentKeys');
+                    break;
+                case 'qualified':
+                    keys = extractKeysFromElement('qualifiedKeys');
+                    break;
+                case 'unstable':
+                    keys = [
+                        ...extractKeysFromElement('unstable1'),
+                        ...extractKeysFromElement('unstable2'),
+                        ...extractKeysFromElement('unstable3')
+                    ];
+                    break;
+                case 'invalid':
+                    keys = extractKeysFromElement('invalidKeys');
+                    break;
+                case 'manualStop':
+                    keys = extractKeysFromElement('manualStopKeys');
+                    break;
+                case 'error':
+                    keys = extractKeysFromElement('errorKeys');
+                    break;
+            }
+            
+            keys = keys.filter(key => key && typeof key === 'string' && key.trim().length > 0);
+            
+            if (keys.length === 0) {
+                alert('该分组没有密钥');
+                return;
+            }
+            
+            const keysText = keys.join('\n');
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(keysText).then(() => {
+                    alert(`已复制 ${keys.length} 个密钥到剪贴板`);
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(keysText, keys.length);
+                });
+            } else {
+                fallbackCopyTextToClipboard(keysText, keys.length);
+            }
+        }
+        
+        function fallbackCopyTextToClipboard(text, count) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.width = '2em';
+            textarea.style.height = '2em';
+            textarea.style.padding = '0';
+            textarea.style.border = 'none';
+            textarea.style.outline = 'none';
+            textarea.style.boxShadow = 'none';
+            textarea.style.background = 'transparent';
+            
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert(`已复制 ${count} 个密钥到剪贴板`);
+                } else {
+                    alert('复制失败，请手动复制');
+                }
+            } catch (err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制');
+            }
+            
+            document.body.removeChild(textarea);
+        }
+        
+        function extractKeysFromElement(elementId) {
+            const element = document.getElementById(elementId);
+            if (!element) return [];
+            const keyElements = element.querySelectorAll('.key-item[data-full-key]');
+            return Array.from(keyElements)
+                .map(el => el.getAttribute('data-full-key'))
+                .filter(key => key && typeof key === 'string' && key.trim().length > 0);
+        }
+        
+        function exportResults() {
+            const allResults = Array.from(state.testResults.values());
+            if (allResults.length === 0) {
+                alert('没有测试结果可导出');
+                return;
+            }
+            
+            const categories = categorizeResults(allResults);
+            const timestamp = new Date().toISOString();
+            
+            const report = {
+                timestamp,
+                summary: {
+                    totalKeys: state.totalKeysCount,
+                    testedKeys: state.testedKeysCount,
+                    totalRequests: state.totalRequestsCount,
+                    perfect: categories.perfect.length,
+                    excellent: categories.excellent.length,
+                    qualified: categories.qualified.length,
+                    unstable: categories.unstable.group1.length + categories.unstable.group2.length + categories.unstable.group3.length,
+                    invalid: categories.invalid.length,
+                    manualStop: categories.manualStop.length,
+                    error: categories.error.length
+                },
+                details: allResults.map(r => ({
+                    key: r.key,
+                    successCount: r.successCount,
+                    totalTests: r.totalTests,
+                    successRate: r.successRate,
+                    failAt: r.failAt,
+                    errorType: r.errorType,
+                    networkErrors: r.networkErrors,
+                    timeoutErrors: r.timeoutErrors,
+                    serverErrors: r.serverErrors
+                })),
+                categories: {
+                    perfect: categories.perfect.map(r => r.key),
+                    excellent: categories.excellent.map(r => r.key),
+                    qualified: categories.qualified.map(r => r.key),
+                    unstable: {
+                        group1: categories.unstable.group1.map(r => r.key),
+                        group2: categories.unstable.group2.map(r => r.key),
+                        group3: categories.unstable.group3.map(r => r.key)
+                    },
+                    invalid: categories.invalid.map(r => r.key),
+                    error: categories.error.map(r => r.key),
+                    manualStop: categories.manualStop.map(r => r.key)
+                }
+            };
+            
+            const dataStr = JSON.stringify(report, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', `gemini-test-report-${new Date().getTime()}.json`);
+            linkElement.click();
+            
+            addLog('测试报告已导出');
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            updateStats();
+            
+            if (!supportsAbortController) {
+                addLog('警告：您的浏览器不支持 AbortController，部分功能可能受限', 'warning');
+            }
+            
+            // 默认开启详细日志
+            document.getElementById('verboseLog').checked = true;
+            
+            addLog('系统已准备就绪 - 增强版', 'success');
+        });
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (state.isRunning) {
+                e.preventDefault();
+                e.returnValue = '测试正在进行中，确定要离开吗？';
+                return e.returnValue;
+            }
+        });
+    </script>
+</body>
+</html>
+````
+
+**核心修复内容：**
+
+1. **完全重写分类逻辑** - 现在同时考虑成功率和429出现时机
+2. **增加详细日志选项** - 可以看到每次请求的具体结果
+3. **添加实时测试状态显示** - 显示当前测试的密钥、进度、成功率
+4. **修正成功率计算** - 在每个地方都正确计算和显示成功率
+5. **增加"无效密钥"分类** - 专门处理认证失败的密钥
+6. **改进UI显示** - 用不同颜色显示成功率，更直观
+7. **增加调试信息** - 在控制台输出分类决策过程
+
+现在，只有满足以下条件的密钥才会被归为"完美"：
+- 成功率 ≥ 95%
+- 429错误出现在第95次或之后
+- 或者完成100次测试且成功率 ≥ 95%
