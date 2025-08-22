@@ -1,0 +1,1241 @@
+19:13:00.651 - INFO - [lifespan:1533] - 服务器正在启动...
+19:13:00.652 - INFO - [lifespan:1538] - 🌐 Server access URLs:
+19:13:00.652 - INFO - [lifespan:1539] -   - Local: http://localhost:9080
+19:13:00.653 - INFO - [lifespan:1540] -   - Network: http://192.168.0.17:9080
+19:13:00.653 - INFO - [lifespan:1541] - 📱 Use the Network URL to access from your phone on the same WiFi
+19:13:00.653 - INFO - [lifespan:1544] -
+📋 Available Endpoints:
+19:13:00.653 - INFO - [lifespan:1545] -   🖥️  Monitor Dashboard: http://192.168.0.17:9080/monitor
+19:13:00.653 - INFO - [lifespan:1546] -      实时监控面板，查看系统状态、请求日志、性能指标
+19:13:00.653 - INFO - [lifespan:1548] -
+  📊 Metrics & Health:
+19:13:00.654 - INFO - [lifespan:1549] -      - Prometheus Metrics: http://192.168.0.17:9080/metrics
+19:13:00.654 - INFO - [lifespan:1550] -        Prometheus格式的性能指标，可接入Grafana
+19:13:00.654 - INFO - [lifespan:1551] -      - Health Check: http://192.168.0.17:9080/health
+19:13:00.654 - INFO - [lifespan:1552] -        基础健康检查
+19:13:00.654 - INFO - [lifespan:1553] -      - Detailed Health: http://192.168.0.17:9080/api/health/detailed
+19:13:00.654 - INFO - [lifespan:1554] -        详细健康状态，包含评分和建议
+19:13:00.654 - INFO - [lifespan:1556] -
+  🤖 AI API:
+19:13:00.654 - INFO - [lifespan:1557] -      - Chat Completions: POST http://192.168.0.17:9080/v1/chat/completions
+19:13:00.655 - INFO - [lifespan:1558] -        OpenAI兼容的聊天API
+19:13:00.655 - INFO - [lifespan:1559] -      - List Models: GET http://192.168.0.17:9080/v1/models
+19:13:00.655 - INFO - [lifespan:1560] -        获取可用模型列表
+19:13:00.655 - INFO - [lifespan:1561] -      - Refresh Models: POST http://192.168.0.17:9080/v1/refresh-models
+19:13:00.655 - INFO - [lifespan:1562] -        刷新模型列表
+19:13:00.655 - INFO - [lifespan:1564] -
+  📈 Statistics:
+19:13:00.655 - INFO - [lifespan:1565] -      - Stats Summary: http://192.168.0.17:9080/api/stats/summary
+19:13:00.655 - INFO - [lifespan:1566] -        24小时统计摘要
+19:13:00.655 - INFO - [lifespan:1567] -      - Request Logs: http://192.168.0.17:9080/api/logs/requests
+19:13:00.655 - INFO - [lifespan:1568] -        请求日志API
+19:13:00.655 - INFO - [lifespan:1569] -      - Error Logs: http://192.168.0.17:9080/api/logs/errors
+19:13:00.655 - INFO - [lifespan:1570] -        错误日志API
+19:13:00.656 - INFO - [lifespan:1571] -      - Alerts: http://192.168.0.17:9080/api/alerts
+19:13:00.656 - INFO - [lifespan:1572] -        系统告警历史
+19:13:00.656 - INFO - [lifespan:1574] -
+  🛠️  OpenAI Client Config:
+19:13:00.656 - INFO - [lifespan:1575] -      base_url='http://192.168.0.17:9080/v1'
+19:13:00.656 - INFO - [lifespan:1576] -      api_key='sk-any-string-you-like'
+19:13:00.656 - INFO - [lifespan:1577] -
+============================================================
+
+19:13:00.656 - INFO - [lifespan:1582] - 已加载 111 个备用模型
+19:13:00.656 - INFO - [lifespan:1591] - 服务器启动完成
+19:13:00.657 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:13:13.962 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:13:14.229 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:13:33.702 - INFO - [add_request:794] - REQUEST_MGR: Added request 9d242334-0695-4d10-9912-8c313fc3c96c for tracking
+19:13:33.702 - INFO - [chat_completions:1841] - API [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Created persistent request for model type 'chat'.
+19:13:33.702 - INFO - [chat_completions:1856] - API [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Returning text/event-stream response to client.
+19:13:33.714 - INFO - [create_lmarena_request_body:2378] - Added empty user message after last user message at index 1 for chat model
+19:13:33.714 - INFO - [send_to_browser_task:1908] - TASK [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Sending payload and 1 file(s) to browser.
+19:13:33.716 - INFO - [send_to_browser_task:1913] - TASK [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Payload sent and marked as sent to browser.
+19:13:33.718 - INFO - [stream_generator:1957] - STREAMER [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Generator started for model type 'chat'.
+19:13:39.170 - INFO - [complete_request:841] - REQUEST_MGR: Request 9d242334-0695-4d10-9912-8c313fc3c96c completed and removed
+19:13:39.171 - ERROR - [stream_generator:2030] - STREAMER [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Server returned error: {'error': 'File upload failed: Failed to fetch'}
+19:13:39.171 - INFO - [stream_generator:2269] - GENERATOR [ID: 9d242334-0695-4d10-9912-8c313fc3c96c]: Cleaned up response channel.
+19:13:48.328 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:13:48.328 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:13:48.852 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:13:48.994 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:14:14.004 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+19:14:29.010 - INFO - [add_request:794] - REQUEST_MGR: Added request 1abf223b-78a1-4d3a-8df9-3534464d6a77 for tracking
+19:14:29.011 - INFO - [chat_completions:1841] - API [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Created persistent request for model type 'chat'.
+19:14:29.011 - INFO - [chat_completions:1856] - API [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Returning application/json response to client.
+19:14:29.012 - INFO - [create_lmarena_request_body:2378] - Added empty user message after last user message at index 0 for chat model
+19:14:29.012 - INFO - [send_to_browser_task:1908] - TASK [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Sending payload and 1 file(s) to browser.
+19:14:29.014 - INFO - [send_to_browser_task:1913] - TASK [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Payload sent and marked as sent to browser.
+19:14:29.015 - INFO - [stream_generator:1957] - STREAMER [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Generator started for model type 'chat'.
+19:14:29.327 - INFO - [complete_request:841] - REQUEST_MGR: Request 1abf223b-78a1-4d3a-8df9-3534464d6a77 completed and removed
+19:14:29.327 - ERROR - [stream_generator:2030] - STREAMER [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Server returned error: {'error': 'File upload failed: Could not parse signed URL response. Response: Server action not found.'}
+19:14:29.327 - INFO - [stream_generator:2269] - GENERATOR [ID: 1abf223b-78a1-4d3a-8df9-3534464d6a77]: Cleaned up response channel.
+19:18:00.669 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 9d242334-0695-4d10-9912-8c313fc3c96c
+19:18:00.670 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 1abf223b-78a1-4d3a-8df9-3534464d6a77
+19:18:00.671 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:23:00.665 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:28:00.666 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:30:34.425 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:30:34.425 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:30:34.532 - INFO - [lifespan:1598] - 生命周期: 服务器正在关闭。正在取消 4 个后台任务...
+19:30:34.532 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-71' coro=<WebSocketHeartbeat.start_heartbeat() running at D:\fd\lmarena-proxy-server\proxy_server.py:540> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:30:34.533 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-4' coro=<MonitoringAlerts.check_system_health() running at D:\fd\lmarena-proxy-server\proxy_server.py:578> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:30:34.533 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-3' coro=<periodic_cleanup() running at D:\fd\lmarena-proxy-server\proxy_server.py:713> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:30:34.533 - INFO - [lifespan:1610] - 生命周期: 等待 3 个已取消的任务完成...
+19:30:34.533 - INFO - [lifespan:1616] - 生命周期: 任务 0 正常完成
+19:30:34.533 - INFO - [lifespan:1616] - 生命周期: 任务 1 正常完成
+19:30:34.533 - INFO - [lifespan:1616] - 生命周期: 任务 2 正常完成
+19:30:34.533 - INFO - [lifespan:1618] - 生命周期: 所有后台任务已取消。关闭完成。
+19:30:39.940 - INFO - [lifespan:1533] - 服务器正在启动...
+19:30:39.942 - INFO - [lifespan:1538] - 🌐 Server access URLs:
+19:30:39.942 - INFO - [lifespan:1539] -   - Local: http://localhost:9080
+19:30:39.942 - INFO - [lifespan:1540] -   - Network: http://192.168.0.17:9080
+19:30:39.942 - INFO - [lifespan:1541] - 📱 Use the Network URL to access from your phone on the same WiFi
+19:30:39.942 - INFO - [lifespan:1544] -
+📋 Available Endpoints:
+19:30:39.942 - INFO - [lifespan:1545] -   🖥️  Monitor Dashboard: http://192.168.0.17:9080/monitor
+19:30:39.942 - INFO - [lifespan:1546] -      实时监控面板，查看系统状态、请求日志、性能指标
+19:30:39.942 - INFO - [lifespan:1548] -
+  📊 Metrics & Health:
+19:30:39.942 - INFO - [lifespan:1549] -      - Prometheus Metrics: http://192.168.0.17:9080/metrics
+19:30:39.943 - INFO - [lifespan:1550] -        Prometheus格式的性能指标，可接入Grafana
+19:30:39.943 - INFO - [lifespan:1551] -      - Health Check: http://192.168.0.17:9080/health
+19:30:39.943 - INFO - [lifespan:1552] -        基础健康检查
+19:30:39.943 - INFO - [lifespan:1553] -      - Detailed Health: http://192.168.0.17:9080/api/health/detailed
+19:30:39.943 - INFO - [lifespan:1554] -        详细健康状态，包含评分和建议
+19:30:39.943 - INFO - [lifespan:1556] -
+  🤖 AI API:
+19:30:39.943 - INFO - [lifespan:1557] -      - Chat Completions: POST http://192.168.0.17:9080/v1/chat/completions
+19:30:39.943 - INFO - [lifespan:1558] -        OpenAI兼容的聊天API
+19:30:39.943 - INFO - [lifespan:1559] -      - List Models: GET http://192.168.0.17:9080/v1/models
+19:30:39.943 - INFO - [lifespan:1560] -        获取可用模型列表
+19:30:39.943 - INFO - [lifespan:1561] -      - Refresh Models: POST http://192.168.0.17:9080/v1/refresh-models
+19:30:39.943 - INFO - [lifespan:1562] -        刷新模型列表
+19:30:39.943 - INFO - [lifespan:1564] -
+  📈 Statistics:
+19:30:39.943 - INFO - [lifespan:1565] -      - Stats Summary: http://192.168.0.17:9080/api/stats/summary
+19:30:39.944 - INFO - [lifespan:1566] -        24小时统计摘要
+19:30:39.944 - INFO - [lifespan:1567] -      - Request Logs: http://192.168.0.17:9080/api/logs/requests
+19:30:39.944 - INFO - [lifespan:1568] -        请求日志API
+19:30:39.944 - INFO - [lifespan:1569] -      - Error Logs: http://192.168.0.17:9080/api/logs/errors
+19:30:39.944 - INFO - [lifespan:1570] -        错误日志API
+19:30:39.944 - INFO - [lifespan:1571] -      - Alerts: http://192.168.0.17:9080/api/alerts
+19:30:39.944 - INFO - [lifespan:1572] -        系统告警历史
+19:30:39.944 - INFO - [lifespan:1574] -
+  🛠️  OpenAI Client Config:
+19:30:39.944 - INFO - [lifespan:1575] -      base_url='http://192.168.0.17:9080/v1'
+19:30:39.944 - INFO - [lifespan:1576] -      api_key='sk-any-string-you-like'
+19:30:39.944 - INFO - [lifespan:1577] -
+============================================================
+
+19:30:39.944 - INFO - [lifespan:1582] - 已加载 111 个备用模型
+19:30:39.944 - INFO - [lifespan:1591] - 服务器启动完成
+19:30:39.945 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:30:40.661 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:30:40.665 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:30:43.567 - INFO - [add_request:794] - REQUEST_MGR: Added request 550aeba2-7fb4-4dc0-bbdc-da117492a211 for tracking
+19:30:43.567 - INFO - [chat_completions:1841] - API [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Created persistent request for model type 'chat'.
+19:30:43.568 - INFO - [chat_completions:1856] - API [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Returning application/json response to client.
+19:30:43.580 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+19:30:43.580 - INFO - [send_to_browser_task:1908] - TASK [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Sending payload and 1 file(s) to browser.
+19:30:43.583 - INFO - [send_to_browser_task:1913] - TASK [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Payload sent and marked as sent to browser.
+19:30:43.584 - INFO - [stream_generator:1957] - STREAMER [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Generator started for model type 'chat'.
+19:31:03.424 - INFO - [complete_request:841] - REQUEST_MGR: Request 550aeba2-7fb4-4dc0-bbdc-da117492a211 completed and removed
+19:31:03.424 - ERROR - [stream_generator:2030] - STREAMER [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Server returned error: {'error': 'File upload failed: Failed to fetch'}
+19:31:03.426 - INFO - [stream_generator:2269] - GENERATOR [ID: 550aeba2-7fb4-4dc0-bbdc-da117492a211]: Cleaned up response channel.
+19:31:27.086 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:31:27.086 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:31:29.152 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:31:29.389 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:31:31.162 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:31:31.162 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:31:31.285 - INFO - [lifespan:1598] - 生命周期: 服务器正在关闭。正在取消 4 个后台任务...
+19:31:31.286 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-195' coro=<WebSocketHeartbeat.start_heartbeat() running at D:\fd\lmarena-proxy-server\proxy_server.py:540> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:31:31.286 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-4' coro=<MonitoringAlerts.check_system_health() running at D:\fd\lmarena-proxy-server\proxy_server.py:578> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:31:31.286 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-3' coro=<periodic_cleanup() running at D:\fd\lmarena-proxy-server\proxy_server.py:713> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:31:31.286 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-10' coro=<WebSocketHeartbeat.start_heartbeat() running at D:\fd\lmarena-proxy-server\proxy_server.py:540> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:31:31.290 - INFO - [lifespan:1610] - 生命周期: 等待 4 个已取消的任务完成...
+19:31:31.290 - INFO - [lifespan:1616] - 生命周期: 任务 0 正常完成
+19:31:31.292 - INFO - [lifespan:1616] - 生命周期: 任务 1 正常完成
+19:31:31.292 - INFO - [lifespan:1616] - 生命周期: 任务 2 正常完成
+19:31:31.292 - INFO - [lifespan:1616] - 生命周期: 任务 3 正常完成
+19:31:31.292 - INFO - [lifespan:1618] - 生命周期: 所有后台任务已取消。关闭完成。
+19:31:36.008 - INFO - [lifespan:1533] - 服务器正在启动...
+19:31:36.009 - INFO - [lifespan:1538] - 🌐 Server access URLs:
+19:31:36.009 - INFO - [lifespan:1539] -   - Local: http://localhost:9080
+19:31:36.009 - INFO - [lifespan:1540] -   - Network: http://192.168.0.17:9080
+19:31:36.009 - INFO - [lifespan:1541] - 📱 Use the Network URL to access from your phone on the same WiFi
+19:31:36.009 - INFO - [lifespan:1544] -
+📋 Available Endpoints:
+19:31:36.009 - INFO - [lifespan:1545] -   🖥️  Monitor Dashboard: http://192.168.0.17:9080/monitor
+19:31:36.009 - INFO - [lifespan:1546] -      实时监控面板，查看系统状态、请求日志、性能指标
+19:31:36.009 - INFO - [lifespan:1548] -
+  📊 Metrics & Health:
+19:31:36.010 - INFO - [lifespan:1549] -      - Prometheus Metrics: http://192.168.0.17:9080/metrics
+19:31:36.010 - INFO - [lifespan:1550] -        Prometheus格式的性能指标，可接入Grafana
+19:31:36.010 - INFO - [lifespan:1551] -      - Health Check: http://192.168.0.17:9080/health
+19:31:36.010 - INFO - [lifespan:1552] -        基础健康检查
+19:31:36.010 - INFO - [lifespan:1553] -      - Detailed Health: http://192.168.0.17:9080/api/health/detailed
+19:31:36.010 - INFO - [lifespan:1554] -        详细健康状态，包含评分和建议
+19:31:36.010 - INFO - [lifespan:1556] -
+  🤖 AI API:
+19:31:36.010 - INFO - [lifespan:1557] -      - Chat Completions: POST http://192.168.0.17:9080/v1/chat/completions
+19:31:36.010 - INFO - [lifespan:1558] -        OpenAI兼容的聊天API
+19:31:36.010 - INFO - [lifespan:1559] -      - List Models: GET http://192.168.0.17:9080/v1/models
+19:31:36.010 - INFO - [lifespan:1560] -        获取可用模型列表
+19:31:36.010 - INFO - [lifespan:1561] -      - Refresh Models: POST http://192.168.0.17:9080/v1/refresh-models
+19:31:36.010 - INFO - [lifespan:1562] -        刷新模型列表
+19:31:36.010 - INFO - [lifespan:1564] -
+  📈 Statistics:
+19:31:36.011 - INFO - [lifespan:1565] -      - Stats Summary: http://192.168.0.17:9080/api/stats/summary
+19:31:36.011 - INFO - [lifespan:1566] -        24小时统计摘要
+19:31:36.011 - INFO - [lifespan:1567] -      - Request Logs: http://192.168.0.17:9080/api/logs/requests
+19:31:36.011 - INFO - [lifespan:1568] -        请求日志API
+19:31:36.011 - INFO - [lifespan:1569] -      - Error Logs: http://192.168.0.17:9080/api/logs/errors
+19:31:36.011 - INFO - [lifespan:1570] -        错误日志API
+19:31:36.011 - INFO - [lifespan:1571] -      - Alerts: http://192.168.0.17:9080/api/alerts
+19:31:36.011 - INFO - [lifespan:1572] -        系统告警历史
+19:31:36.011 - INFO - [lifespan:1574] -
+  🛠️  OpenAI Client Config:
+19:31:36.012 - INFO - [lifespan:1575] -      base_url='http://192.168.0.17:9080/v1'
+19:31:36.012 - INFO - [lifespan:1576] -      api_key='sk-any-string-you-like'
+19:31:36.012 - INFO - [lifespan:1577] -
+============================================================
+
+19:31:36.012 - INFO - [lifespan:1582] - 已加载 111 个备用模型
+19:31:36.012 - INFO - [lifespan:1591] - 服务器启动完成
+19:31:36.013 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:31:36.341 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:31:36.343 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:31:48.924 - INFO - [add_request:794] - REQUEST_MGR: Added request 83451a06-6eda-4508-abfd-61abd2d77288 for tracking
+19:31:48.924 - INFO - [chat_completions:1841] - API [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Created persistent request for model type 'chat'.
+19:31:48.924 - INFO - [chat_completions:1856] - API [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Returning application/json response to client.
+19:31:48.940 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+19:31:48.940 - INFO - [send_to_browser_task:1908] - TASK [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Sending payload and 1 file(s) to browser.
+19:31:48.943 - INFO - [send_to_browser_task:1913] - TASK [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Payload sent and marked as sent to browser.
+19:31:48.944 - INFO - [stream_generator:1957] - STREAMER [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Generator started for model type 'chat'.
+19:32:47.130 - WARNING - [stream_generator:2231] - GENERATOR [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Client disconnected.
+19:32:47.131 - INFO - [stream_generator:2240] - GENERATOR [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Sent abort message to browser
+19:32:47.132 - INFO - [stream_generator:2269] - GENERATOR [ID: 83451a06-6eda-4508-abfd-61abd2d77288]: Cleaned up response channel.
+19:32:47.132 - INFO - [complete_request:841] - REQUEST_MGR: Request 83451a06-6eda-4508-abfd-61abd2d77288 completed and removed
+19:32:50.579 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:32:50.579 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:32:51.130 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:32:51.281 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:33:06.341 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+19:33:09.402 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:33:09.402 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:33:09.943 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:33:10.149 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:33:21.126 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+19:34:37.179 - INFO - [add_request:794] - REQUEST_MGR: Added request a56b75a6-2fc1-4750-8fe4-27cd9861fc6d for tracking
+19:34:37.179 - INFO - [chat_completions:1841] - API [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Created persistent request for model type 'chat'.
+19:34:37.179 - INFO - [chat_completions:1856] - API [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Returning application/json response to client.
+19:34:37.179 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+19:34:37.180 - INFO - [send_to_browser_task:1908] - TASK [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Sending payload and 0 file(s) to browser.
+19:34:37.181 - INFO - [send_to_browser_task:1913] - TASK [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Payload sent and marked as sent to browser.
+19:34:37.181 - INFO - [stream_generator:1957] - STREAMER [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Generator started for model type 'chat'.
+19:35:58.258 - WARNING - [stream_generator:2231] - GENERATOR [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Client disconnected.
+19:35:58.261 - INFO - [stream_generator:2240] - GENERATOR [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Sent abort message to browser
+19:35:58.261 - INFO - [stream_generator:2269] - GENERATOR [ID: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d]: Cleaned up response channel.
+19:35:58.261 - INFO - [complete_request:841] - REQUEST_MGR: Request a56b75a6-2fc1-4750-8fe4-27cd9861fc6d completed and removed
+19:36:02.230 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:36:02.230 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:36:02.796 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:36:03.035 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:36:09.958 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+19:36:36.021 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 83451a06-6eda-4508-abfd-61abd2d77288
+19:36:36.023 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 1
+19:36:47.246 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:36:47.246 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:36:47.809 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+19:36:47.996 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+19:36:53.933 - INFO - [add_request:794] - REQUEST_MGR: Added request c387e287-a878-44c8-99d0-a8b600fc3d8a for tracking
+19:36:53.933 - INFO - [chat_completions:1841] - API [ID: c387e287-a878-44c8-99d0-a8b600fc3d8a]: Created persistent request for model type 'chat'.
+19:36:53.933 - INFO - [chat_completions:1856] - API [ID: c387e287-a878-44c8-99d0-a8b600fc3d8a]: Returning application/json response to client.
+19:36:53.935 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+19:36:53.935 - INFO - [send_to_browser_task:1908] - TASK [ID: c387e287-a878-44c8-99d0-a8b600fc3d8a]: Sending payload and 0 file(s) to browser.
+19:36:53.935 - INFO - [send_to_browser_task:1913] - TASK [ID: c387e287-a878-44c8-99d0-a8b600fc3d8a]: Payload sent and marked as sent to browser.
+19:36:53.935 - INFO - [stream_generator:1957] - STREAMER [ID: c387e287-a878-44c8-99d0-a8b600fc3d8a]: Generator started for model type 'chat'.
+19:36:57.779 - INFO - [complete_request:841] - REQUEST_MGR: Request c387e287-a878-44c8-99d0-a8b600fc3d8a completed and removed
+19:36:57.782 - INFO - [stream_generator:2269] - GENERATOR [ID: c387e287-a878-44c8-99d0-a8b600fc3d8a]: Cleaned up response channel.
+19:37:00.979 - INFO - [add_request:794] - REQUEST_MGR: Added request 4b913bd2-34ec-4342-aabc-656b3051d0e0 for tracking
+19:37:00.979 - INFO - [chat_completions:1841] - API [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Created persistent request for model type 'chat'.
+19:37:00.979 - INFO - [chat_completions:1856] - API [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Returning application/json response to client.
+19:37:00.980 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+19:37:00.980 - INFO - [send_to_browser_task:1908] - TASK [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Sending payload and 1 file(s) to browser.
+19:37:00.982 - INFO - [send_to_browser_task:1913] - TASK [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Payload sent and marked as sent to browser.
+19:37:00.983 - INFO - [stream_generator:1957] - STREAMER [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Generator started for model type 'chat'.
+19:37:01.401 - INFO - [complete_request:841] - REQUEST_MGR: Request 4b913bd2-34ec-4342-aabc-656b3051d0e0 completed and removed
+19:37:01.402 - ERROR - [stream_generator:2030] - STREAMER [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Server returned error: {'error': 'File upload failed: Could not parse signed URL response. Response: Server action not found.'}
+19:37:01.404 - INFO - [stream_generator:2269] - GENERATOR [ID: 4b913bd2-34ec-4342-aabc-656b3051d0e0]: Cleaned up response channel.
+19:37:02.809 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+19:41:36.028 - WARNING - [cleanup_old_requests:688] - 清理超时请求: a56b75a6-2fc1-4750-8fe4-27cd9861fc6d
+19:41:36.029 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 4b913bd2-34ec-4342-aabc-656b3051d0e0
+19:41:36.036 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+19:42:37.936 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+19:42:37.936 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+19:42:47.917 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+19:42:52.467 - INFO - [lifespan:1598] - 生命周期: 服务器正在关闭。正在取消 7 个后台任务...
+19:42:52.468 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-4' coro=<MonitoringAlerts.check_system_health() running at D:\fd\lmarena-proxy-server\proxy_server.py:578> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:42:52.468 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-3' coro=<periodic_cleanup() running at D:\fd\lmarena-proxy-server\proxy_server.py:713> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+19:42:52.468 - INFO - [lifespan:1610] - 生命周期: 等待 2 个已取消的任务完成...
+19:42:52.469 - INFO - [lifespan:1616] - 生命周期: 任务 0 正常完成
+19:42:52.469 - INFO - [lifespan:1616] - 生命周期: 任务 1 正常完成
+19:42:52.469 - INFO - [lifespan:1618] - 生命周期: 所有后台任务已取消。关闭完成。
+20:15:34.572 - INFO - [lifespan:1533] - 服务器正在启动...
+20:15:34.573 - INFO - [lifespan:1538] - 🌐 Server access URLs:
+20:15:34.574 - INFO - [lifespan:1539] -   - Local: http://localhost:9080
+20:15:34.574 - INFO - [lifespan:1540] -   - Network: http://192.168.0.17:9080
+20:15:34.574 - INFO - [lifespan:1541] - 📱 Use the Network URL to access from your phone on the same WiFi
+20:15:34.574 - INFO - [lifespan:1544] -
+📋 Available Endpoints:
+20:15:34.574 - INFO - [lifespan:1545] -   🖥️  Monitor Dashboard: http://192.168.0.17:9080/monitor
+20:15:34.574 - INFO - [lifespan:1546] -      实时监控面板，查看系统状态、请求日志、性能指标
+20:15:34.574 - INFO - [lifespan:1548] -
+  📊 Metrics & Health:
+20:15:34.574 - INFO - [lifespan:1549] -      - Prometheus Metrics: http://192.168.0.17:9080/metrics
+20:15:34.574 - INFO - [lifespan:1550] -        Prometheus格式的性能指标，可接入Grafana
+20:15:34.574 - INFO - [lifespan:1551] -      - Health Check: http://192.168.0.17:9080/health
+20:15:34.574 - INFO - [lifespan:1552] -        基础健康检查
+20:15:34.575 - INFO - [lifespan:1553] -      - Detailed Health: http://192.168.0.17:9080/api/health/detailed
+20:15:34.575 - INFO - [lifespan:1554] -        详细健康状态，包含评分和建议
+20:15:34.575 - INFO - [lifespan:1556] -
+  🤖 AI API:
+20:15:34.575 - INFO - [lifespan:1557] -      - Chat Completions: POST http://192.168.0.17:9080/v1/chat/completions
+20:15:34.575 - INFO - [lifespan:1558] -        OpenAI兼容的聊天API
+20:15:34.575 - INFO - [lifespan:1559] -      - List Models: GET http://192.168.0.17:9080/v1/models
+20:15:34.575 - INFO - [lifespan:1560] -        获取可用模型列表
+20:15:34.575 - INFO - [lifespan:1561] -      - Refresh Models: POST http://192.168.0.17:9080/v1/refresh-models
+20:15:34.575 - INFO - [lifespan:1562] -        刷新模型列表
+20:15:34.575 - INFO - [lifespan:1564] -
+  📈 Statistics:
+20:15:34.575 - INFO - [lifespan:1565] -      - Stats Summary: http://192.168.0.17:9080/api/stats/summary
+20:15:34.575 - INFO - [lifespan:1566] -        24小时统计摘要
+20:15:34.576 - INFO - [lifespan:1567] -      - Request Logs: http://192.168.0.17:9080/api/logs/requests
+20:15:34.576 - INFO - [lifespan:1568] -        请求日志API
+20:15:34.576 - INFO - [lifespan:1569] -      - Error Logs: http://192.168.0.17:9080/api/logs/errors
+20:15:34.576 - INFO - [lifespan:1570] -        错误日志API
+20:15:34.576 - INFO - [lifespan:1571] -      - Alerts: http://192.168.0.17:9080/api/alerts
+20:15:34.577 - INFO - [lifespan:1572] -        系统告警历史
+20:15:34.577 - INFO - [lifespan:1574] -
+  🛠️  OpenAI Client Config:
+20:15:34.577 - INFO - [lifespan:1575] -      base_url='http://192.168.0.17:9080/v1'
+20:15:34.577 - INFO - [lifespan:1576] -      api_key='sk-any-string-you-like'
+20:15:34.577 - INFO - [lifespan:1577] -
+============================================================
+
+20:15:34.577 - INFO - [lifespan:1582] - 已加载 111 个备用模型
+20:15:34.577 - INFO - [lifespan:1591] - 服务器启动完成
+20:15:34.578 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:15:40.654 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:15:40.658 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:15:40.754 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:15:40.754 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:15:41.375 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:15:41.906 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:15:57.451 - INFO - [add_request:794] - REQUEST_MGR: Added request 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda for tracking
+20:15:57.451 - INFO - [chat_completions:1841] - API [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Created persistent request for model type 'chat'.
+20:15:57.451 - INFO - [chat_completions:1856] - API [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Returning application/json response to client.
+20:15:57.452 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:15:57.452 - INFO - [send_to_browser_task:1908] - TASK [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Sending payload and 1 file(s) to browser.
+20:15:57.465 - INFO - [send_to_browser_task:1913] - TASK [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Payload sent and marked as sent to browser.
+20:15:57.465 - INFO - [stream_generator:1957] - STREAMER [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Generator started for model type 'chat'.
+20:16:04.057 - INFO - [complete_request:841] - REQUEST_MGR: Request 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda completed and removed
+20:16:04.062 - ERROR - [stream_generator:2030] - STREAMER [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Server returned error: {'error': 'Fetch failed with status 404: {"error":"Model not found"}'}
+20:16:04.062 - INFO - [stream_generator:2269] - GENERATOR [ID: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda]: Cleaned up response channel.
+20:16:10.663 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:17:18.193 - INFO - [add_request:794] - REQUEST_MGR: Added request de7edb61-9c5a-496a-90b9-508571b1792a for tracking
+20:17:18.193 - INFO - [chat_completions:1841] - API [ID: de7edb61-9c5a-496a-90b9-508571b1792a]: Created persistent request for model type 'chat'.
+20:17:18.193 - INFO - [chat_completions:1856] - API [ID: de7edb61-9c5a-496a-90b9-508571b1792a]: Returning application/json response to client.
+20:17:18.196 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:17:18.197 - INFO - [send_to_browser_task:1908] - TASK [ID: de7edb61-9c5a-496a-90b9-508571b1792a]: Sending payload and 0 file(s) to browser.
+20:17:18.198 - INFO - [send_to_browser_task:1913] - TASK [ID: de7edb61-9c5a-496a-90b9-508571b1792a]: Payload sent and marked as sent to browser.
+20:17:18.199 - INFO - [stream_generator:1957] - STREAMER [ID: de7edb61-9c5a-496a-90b9-508571b1792a]: Generator started for model type 'chat'.
+20:17:21.610 - INFO - [complete_request:841] - REQUEST_MGR: Request de7edb61-9c5a-496a-90b9-508571b1792a completed and removed
+20:17:21.624 - INFO - [stream_generator:2269] - GENERATOR [ID: de7edb61-9c5a-496a-90b9-508571b1792a]: Cleaned up response channel.
+20:17:27.861 - INFO - [add_request:794] - REQUEST_MGR: Added request e11596cd-8436-43e7-acaa-43cfb5db559d for tracking
+20:17:27.862 - INFO - [chat_completions:1841] - API [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Created persistent request for model type 'chat'.
+20:17:27.862 - INFO - [chat_completions:1856] - API [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Returning application/json response to client.
+20:17:27.863 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:17:27.864 - INFO - [send_to_browser_task:1908] - TASK [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Sending payload and 1 file(s) to browser.
+20:17:27.865 - INFO - [send_to_browser_task:1913] - TASK [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Payload sent and marked as sent to browser.
+20:17:27.866 - INFO - [stream_generator:1957] - STREAMER [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Generator started for model type 'chat'.
+20:17:31.025 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:17:31.025 - WARNING - [handle_browser_disconnect:873] - REQUEST_MGR: Browser disconnected with 1 pending requests.
+20:17:31.026 - INFO - [handle_browser_disconnect:885] - REQUEST_MGR: Spawning timeout watcher for 1 pending requests.
+20:17:31.026 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:17:31.622 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:17:31.622 - INFO - [websocket_endpoint:1651] - 🔄 浏览器重连，有 1 个待处理请求
+20:17:31.633 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 1 个待处理请求
+20:17:31.633 - INFO - [websocket_endpoint:1684] - 🔄 已恢复请求通道: e11596cd-8436-43e7-acaa-43cfb5db559d
+20:17:41.397 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:17:54.159 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:17:54.159 - WARNING - [handle_browser_disconnect:873] - REQUEST_MGR: Browser disconnected with 1 pending requests.
+20:17:54.160 - INFO - [handle_browser_disconnect:885] - REQUEST_MGR: Spawning timeout watcher for 1 pending requests.
+20:17:54.160 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:17:54.735 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:17:54.736 - INFO - [websocket_endpoint:1651] - 🔄 浏览器重连，有 1 个待处理请求
+20:17:54.984 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 1 个待处理请求
+20:17:54.985 - INFO - [websocket_endpoint:1684] - 🔄 已恢复请求通道: e11596cd-8436-43e7-acaa-43cfb5db559d
+20:18:01.634 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:18:07.569 - WARNING - [stream_generator:2231] - GENERATOR [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Client disconnected.
+20:18:07.569 - INFO - [stream_generator:2240] - GENERATOR [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Sent abort message to browser
+20:18:07.570 - INFO - [stream_generator:2269] - GENERATOR [ID: e11596cd-8436-43e7-acaa-43cfb5db559d]: Cleaned up response channel.
+20:18:07.570 - INFO - [complete_request:841] - REQUEST_MGR: Request e11596cd-8436-43e7-acaa-43cfb5db559d completed and removed
+20:19:13.469 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:19:13.469 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:19:15.595 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:19:15.802 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:19:24.775 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:20:11.120 - INFO - [add_request:794] - REQUEST_MGR: Added request 71d60eab-aa57-41e5-b3a0-cce5da73f38c for tracking
+20:20:11.120 - INFO - [chat_completions:1841] - API [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Created persistent request for model type 'chat'.
+20:20:11.120 - INFO - [chat_completions:1856] - API [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Returning application/json response to client.
+20:20:11.120 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:20:11.123 - INFO - [send_to_browser_task:1908] - TASK [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Sending payload and 1 file(s) to browser.
+20:20:11.123 - INFO - [send_to_browser_task:1913] - TASK [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Payload sent and marked as sent to browser.
+20:20:11.123 - INFO - [stream_generator:1957] - STREAMER [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Generator started for model type 'chat'.
+20:20:31.027 - INFO - [request_timeout_watcher:855] - WATCHER: Timeout reached. Checking 1 requests.
+20:20:34.593 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 7fb2a5cb-c7df-4d69-89ea-84ebbf3a0eda
+20:20:34.593 - WARNING - [cleanup_old_requests:688] - 清理超时请求: e11596cd-8436-43e7-acaa-43cfb5db559d
+20:20:34.595 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 1
+20:20:54.153 - INFO - [request_timeout_watcher:855] - WATCHER: Timeout reached. Checking 1 requests.
+20:21:00.580 - WARNING - [stream_generator:2231] - GENERATOR [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Client disconnected.
+20:21:00.581 - INFO - [stream_generator:2240] - GENERATOR [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Sent abort message to browser
+20:21:00.582 - INFO - [stream_generator:2269] - GENERATOR [ID: 71d60eab-aa57-41e5-b3a0-cce5da73f38c]: Cleaned up response channel.
+20:21:00.582 - INFO - [complete_request:841] - REQUEST_MGR: Request 71d60eab-aa57-41e5-b3a0-cce5da73f38c completed and removed
+20:21:11.687 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:21:11.687 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:21:12.182 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:21:12.489 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:21:15.603 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:21:59.085 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:21:59.086 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:21:59.631 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:21:59.816 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:22:12.225 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:22:24.285 - INFO - [add_request:794] - REQUEST_MGR: Added request 38742ab4-5621-45b7-ae1f-77f429f154dd for tracking
+20:22:24.285 - INFO - [chat_completions:1841] - API [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Created persistent request for model type 'chat'.
+20:22:24.285 - INFO - [chat_completions:1856] - API [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Returning application/json response to client.
+20:22:24.285 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:22:24.285 - INFO - [send_to_browser_task:1908] - TASK [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Sending payload and 1 file(s) to browser.
+20:22:24.291 - INFO - [send_to_browser_task:1913] - TASK [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Payload sent and marked as sent to browser.
+20:22:24.291 - INFO - [stream_generator:1957] - STREAMER [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Generator started for model type 'chat'.
+20:22:28.005 - INFO - [complete_request:841] - REQUEST_MGR: Request 38742ab4-5621-45b7-ae1f-77f429f154dd completed and removed
+20:22:28.007 - ERROR - [stream_generator:2030] - STREAMER [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Server returned error: {'error': 'Fetch failed with status 404: {"error":"Model not found"}'}
+20:22:28.010 - INFO - [stream_generator:2269] - GENERATOR [ID: 38742ab4-5621-45b7-ae1f-77f429f154dd]: Cleaned up response channel.
+20:25:06.019 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:25:06.020 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:25:06.638 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:25:07.140 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:25:13.505 - INFO - [add_request:794] - REQUEST_MGR: Added request 2bfd1c27-d627-4123-8969-ab2efc41b60a for tracking
+20:25:13.505 - INFO - [chat_completions:1841] - API [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Created persistent request for model type 'chat'.
+20:25:13.505 - INFO - [chat_completions:1856] - API [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Returning application/json response to client.
+20:25:13.505 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:25:13.505 - INFO - [send_to_browser_task:1908] - TASK [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Sending payload and 1 file(s) to browser.
+20:25:13.510 - INFO - [send_to_browser_task:1913] - TASK [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Payload sent and marked as sent to browser.
+20:25:13.513 - INFO - [stream_generator:1957] - STREAMER [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Generator started for model type 'chat'.
+20:25:13.913 - INFO - [complete_request:841] - REQUEST_MGR: Request 2bfd1c27-d627-4123-8969-ab2efc41b60a completed and removed
+20:25:13.913 - ERROR - [stream_generator:2030] - STREAMER [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Server returned error: {'error': 'File upload failed: Signed URL data is incomplete or invalid after parsing.'}
+20:25:13.913 - INFO - [stream_generator:2269] - GENERATOR [ID: 2bfd1c27-d627-4123-8969-ab2efc41b60a]: Cleaned up response channel.
+20:25:23.591 - INFO - [add_request:794] - REQUEST_MGR: Added request 1582ec28-c4e3-4ff8-aa8f-f23b8a513706 for tracking
+20:25:23.591 - INFO - [chat_completions:1841] - API [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Created persistent request for model type 'chat'.
+20:25:23.591 - INFO - [chat_completions:1856] - API [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Returning application/json response to client.
+20:25:23.591 - INFO - [create_lmarena_request_body:2380] - Added empty user message after last user message at index 0 for chat model
+20:25:23.594 - INFO - [send_to_browser_task:1908] - TASK [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Sending payload and 1 file(s) to browser.
+20:25:23.596 - INFO - [send_to_browser_task:1913] - TASK [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Payload sent and marked as sent to browser.
+20:25:23.598 - INFO - [stream_generator:1957] - STREAMER [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Generator started for model type 'chat'.
+20:25:24.019 - INFO - [complete_request:841] - REQUEST_MGR: Request 1582ec28-c4e3-4ff8-aa8f-f23b8a513706 completed and removed
+20:25:24.021 - ERROR - [stream_generator:2030] - STREAMER [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Server returned error: {'error': 'File upload failed: Signed URL data is incomplete or invalid after parsing.'}
+20:25:24.021 - INFO - [stream_generator:2269] - GENERATOR [ID: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706]: Cleaned up response channel.
+20:25:29.655 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:25:34.588 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 71d60eab-aa57-41e5-b3a0-cce5da73f38c
+20:25:34.589 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 38742ab4-5621-45b7-ae1f-77f429f154dd
+20:25:34.591 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 2
+20:30:34.581 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 2bfd1c27-d627-4123-8969-ab2efc41b60a
+20:30:34.582 - WARNING - [cleanup_old_requests:688] - 清理超时请求: 1582ec28-c4e3-4ff8-aa8f-f23b8a513706
+20:30:34.588 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:35:34.594 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:35:50.443 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:35:50.445 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:36:06.686 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:36:40.354 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:36:40.542 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:38:38.187 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:38:38.187 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:38:38.801 - INFO - [websocket_endpoint:1638] - ✅ 浏览器WebSocket已连接
+20:38:39.061 - INFO - [websocket_endpoint:1673] - 🤝 收到重连握手，浏览器有 0 个待处理请求
+20:38:40.355 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:38:59.183 - WARNING - [websocket_endpoint:1741] - ❌ 浏览器客户端已断开连接
+20:38:59.184 - INFO - [websocket_endpoint:1761] - WebSocket cleaned up. Persistent requests kept alive.
+20:39:08.816 - ERROR - [start_heartbeat:543] - 心跳发送失败: Unexpected ASGI message 'websocket.send', after sending 'websocket.close' or response already completed.
+20:40:34.610 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:44:05.000 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 5 分钟
+20:44:35.001 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 5 分钟
+20:45:05.029 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 6 分钟
+20:45:34.623 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:45:35.005 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 6 分钟
+20:46:05.005 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 7 分钟
+20:46:35.016 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 7 分钟
+20:47:05.031 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 8 分钟
+20:47:35.049 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 8 分钟
+20:48:05.058 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 9 分钟
+20:48:35.058 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 9 分钟
+20:49:05.048 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 10 分钟
+20:49:35.046 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 10 分钟
+20:50:05.050 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 11 分钟
+20:50:34.630 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:50:35.055 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 11 分钟
+20:51:05.071 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 12 分钟
+20:51:35.077 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 12 分钟
+20:52:05.090 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 13 分钟
+20:52:35.107 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 13 分钟
+20:53:05.089 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 14 分钟
+20:53:35.087 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 14 分钟
+20:54:05.087 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 15 分钟
+20:54:35.090 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 15 分钟
+20:55:05.089 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 16 分钟
+20:55:34.640 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+20:55:35.088 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 16 分钟
+20:56:05.103 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 17 分钟
+20:56:35.098 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 17 分钟
+20:57:05.101 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 18 分钟
+20:57:35.098 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 18 分钟
+20:58:05.117 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 19 分钟
+20:58:35.114 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 19 分钟
+20:59:05.130 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 20 分钟
+20:59:35.132 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 20 分钟
+21:00:05.131 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 21 分钟
+21:00:34.648 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:00:35.130 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 21 分钟
+21:01:05.143 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 22 分钟
+21:01:35.167 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 22 分钟
+21:02:05.166 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 23 分钟
+21:02:35.164 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 23 分钟
+21:03:05.171 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 24 分钟
+21:03:35.181 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 24 分钟
+21:04:05.200 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 25 分钟
+21:04:35.211 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 25 分钟
+21:05:05.225 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 26 分钟
+21:05:34.662 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:05:35.235 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 26 分钟
+21:06:05.236 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 27 分钟
+21:06:35.246 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 27 分钟
+21:07:05.250 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 28 分钟
+21:07:35.250 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 28 分钟
+21:08:05.254 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 29 分钟
+21:08:35.267 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 29 分钟
+21:09:05.257 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 30 分钟
+21:09:35.270 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 30 分钟
+21:10:05.282 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 31 分钟
+21:10:34.677 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:10:35.279 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 31 分钟
+21:11:05.275 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 32 分钟
+21:11:35.288 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 32 分钟
+21:12:05.305 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 33 分钟
+21:12:35.310 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 33 分钟
+21:13:05.293 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 34 分钟
+21:13:35.303 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 34 分钟
+21:14:05.314 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 35 分钟
+21:14:35.308 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 35 分钟
+21:15:05.307 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 36 分钟
+21:15:34.683 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:15:35.307 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 36 分钟
+21:16:05.311 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 37 分钟
+21:16:35.322 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 37 分钟
+21:17:05.325 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 38 分钟
+21:17:35.340 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 38 分钟
+21:18:05.346 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 39 分钟
+21:18:35.354 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 39 分钟
+21:19:05.360 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 40 分钟
+21:19:35.367 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 40 分钟
+21:20:05.378 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 41 分钟
+21:20:34.672 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:20:35.370 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 41 分钟
+21:21:05.385 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 42 分钟
+21:21:35.399 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 42 分钟
+21:22:05.415 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 43 分钟
+21:22:35.431 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 43 分钟
+21:23:05.456 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 44 分钟
+21:23:35.463 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 44 分钟
+21:24:05.464 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 45 分钟
+21:24:35.465 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 45 分钟
+21:25:05.465 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 46 分钟
+21:25:34.679 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:25:35.477 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 46 分钟
+21:26:05.459 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 47 分钟
+21:26:35.466 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 47 分钟
+21:27:05.485 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 48 分钟
+21:27:35.492 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 48 分钟
+21:28:05.496 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 49 分钟
+21:28:35.497 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 49 分钟
+21:29:05.509 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 50 分钟
+21:29:35.520 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 50 分钟
+21:30:05.522 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 51 分钟
+21:30:34.690 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:30:35.532 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 51 分钟
+21:31:05.523 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 52 分钟
+21:31:35.527 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 52 分钟
+21:32:05.538 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 53 分钟
+21:32:35.550 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 53 分钟
+21:33:05.543 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 54 分钟
+21:33:35.540 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 54 分钟
+21:34:05.548 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 55 分钟
+21:34:35.551 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 55 分钟
+21:35:05.554 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 56 分钟
+21:35:34.695 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:35:35.563 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 56 分钟
+21:36:05.569 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 57 分钟
+21:36:35.576 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 57 分钟
+21:37:05.585 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 58 分钟
+21:37:35.603 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 58 分钟
+21:38:05.607 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 59 分钟
+21:38:35.589 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 59 分钟
+21:39:05.588 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 60 分钟
+21:39:35.603 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 60 分钟
+21:40:05.605 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 61 分钟
+21:40:34.707 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:40:35.622 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 61 分钟
+21:41:05.621 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 62 分钟
+21:41:35.632 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 62 分钟
+21:42:05.639 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 63 分钟
+21:42:35.658 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 63 分钟
+21:43:05.657 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 64 分钟
+21:43:35.665 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 64 分钟
+21:44:05.684 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 65 分钟
+21:44:35.687 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 65 分钟
+21:45:05.699 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 66 分钟
+21:45:34.718 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:45:35.698 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 66 分钟
+21:46:05.726 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 67 分钟
+21:46:35.730 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 67 分钟
+21:47:05.743 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 68 分钟
+21:47:35.756 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 68 分钟
+21:48:05.765 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 69 分钟
+21:48:35.762 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 69 分钟
+21:49:05.763 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 70 分钟
+21:49:35.776 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 70 分钟
+21:50:05.763 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 71 分钟
+21:50:34.730 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:50:35.779 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 71 分钟
+21:51:05.770 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 72 分钟
+21:51:35.775 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 72 分钟
+21:52:05.761 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 73 分钟
+21:52:35.787 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 73 分钟
+21:53:05.790 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 74 分钟
+21:53:35.790 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 74 分钟
+21:54:05.793 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 75 分钟
+21:54:35.793 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 75 分钟
+21:55:05.804 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 76 分钟
+21:55:34.742 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+21:55:35.820 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 76 分钟
+21:56:05.820 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 77 分钟
+21:56:35.818 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 77 分钟
+21:57:05.824 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 78 分钟
+21:57:35.826 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 78 分钟
+21:58:05.831 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 79 分钟
+21:58:35.844 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 79 分钟
+21:59:05.848 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 80 分钟
+21:59:35.847 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 80 分钟
+22:00:05.847 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 81 分钟
+22:00:34.750 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:00:35.858 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 81 分钟
+22:01:05.862 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 82 分钟
+22:01:35.842 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 82 分钟
+22:02:05.865 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 83 分钟
+22:02:35.856 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 83 分钟
+22:03:05.859 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 84 分钟
+22:03:35.873 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 84 分钟
+22:04:05.874 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 85 分钟
+22:04:35.889 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 85 分钟
+22:05:05.894 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 86 分钟
+22:05:34.756 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:05:35.895 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 86 分钟
+22:06:05.906 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 87 分钟
+22:06:35.921 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 87 分钟
+22:07:05.939 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 88 分钟
+22:07:35.919 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 88 分钟
+22:08:05.919 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 89 分钟
+22:08:35.934 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 89 分钟
+22:09:05.950 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 90 分钟
+22:09:35.965 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 90 分钟
+22:10:05.985 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 91 分钟
+22:10:34.751 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:10:35.985 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 91 分钟
+22:11:05.998 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 92 分钟
+22:11:36.014 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 92 分钟
+22:12:06.015 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 93 分钟
+22:12:36.032 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 93 分钟
+22:13:06.040 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 94 分钟
+22:13:36.048 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 94 分钟
+22:14:06.065 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 95 分钟
+22:14:36.063 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 95 分钟
+22:15:06.048 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 96 分钟
+22:15:34.767 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:15:36.045 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 96 分钟
+22:16:06.059 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 97 分钟
+22:16:36.051 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 97 分钟
+22:17:06.059 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 98 分钟
+22:17:36.073 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 98 分钟
+22:18:06.078 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 99 分钟
+22:18:36.090 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 99 分钟
+22:19:06.114 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 100 分钟
+22:19:36.094 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 100 分钟
+22:20:06.110 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 101 分钟
+22:20:34.786 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:20:36.112 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 101 分钟
+22:21:06.136 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 102 分钟
+22:21:36.152 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 102 分钟
+22:22:06.157 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 103 分钟
+22:22:36.167 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 103 分钟
+22:23:06.168 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 104 分钟
+22:23:36.150 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 104 分钟
+22:24:06.165 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 105 分钟
+22:24:36.177 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 105 分钟
+22:25:06.191 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 106 分钟
+22:25:34.805 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:25:36.193 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 106 分钟
+22:26:06.203 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 107 分钟
+22:26:36.222 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 107 分钟
+22:27:06.234 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 108 分钟
+22:27:36.243 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 108 分钟
+22:28:06.258 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 109 分钟
+22:28:36.263 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 109 分钟
+22:29:06.275 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 110 分钟
+22:29:36.282 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 110 分钟
+22:30:06.297 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 111 分钟
+22:30:34.821 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:30:36.322 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 111 分钟
+22:31:06.331 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 112 分钟
+22:31:36.346 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 112 分钟
+22:32:06.367 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 113 分钟
+22:32:36.368 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 113 分钟
+22:33:06.352 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 114 分钟
+22:33:36.374 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 114 分钟
+22:34:06.384 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 115 分钟
+22:34:36.384 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 115 分钟
+22:35:06.389 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 116 分钟
+22:35:34.837 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:35:36.398 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 116 分钟
+22:36:06.414 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 117 分钟
+22:36:36.431 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 117 分钟
+22:37:06.433 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 118 分钟
+22:37:36.429 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 118 分钟
+22:38:06.439 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 119 分钟
+22:38:36.441 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 119 分钟
+22:39:06.440 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 120 分钟
+22:39:36.448 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 120 分钟
+22:40:06.469 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 121 分钟
+22:40:34.856 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:40:36.477 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 121 分钟
+22:41:06.490 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 122 分钟
+22:41:36.496 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 122 分钟
+22:42:06.510 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 123 分钟
+22:42:36.525 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 123 分钟
+22:43:06.545 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 124 分钟
+22:43:36.560 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 124 分钟
+22:44:06.563 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 125 分钟
+22:44:36.570 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 125 分钟
+22:45:06.575 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 126 分钟
+22:45:34.850 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:45:36.577 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 126 分钟
+22:46:06.588 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 127 分钟
+22:46:36.599 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 127 分钟
+22:47:06.612 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 128 分钟
+22:47:36.604 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 128 分钟
+22:48:06.620 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 129 分钟
+22:48:36.606 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 129 分钟
+22:49:06.615 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 130 分钟
+22:49:36.604 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 130 分钟
+22:50:06.619 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 131 分钟
+22:50:34.871 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:50:36.630 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 131 分钟
+22:51:06.633 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 132 分钟
+22:51:36.648 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 132 分钟
+22:52:06.650 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 133 分钟
+22:52:36.647 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 133 分钟
+22:53:06.662 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 134 分钟
+22:53:36.690 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 134 分钟
+22:54:06.680 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 135 分钟
+22:54:36.684 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 135 分钟
+22:55:06.684 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 136 分钟
+22:55:34.855 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+22:55:36.678 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 136 分钟
+22:56:06.676 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 137 分钟
+22:56:36.698 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 137 分钟
+22:57:06.710 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 138 分钟
+22:57:36.714 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 138 分钟
+22:58:06.717 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 139 分钟
+22:58:36.716 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 139 分钟
+22:59:06.728 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 140 分钟
+22:59:36.740 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 140 分钟
+23:00:06.731 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 141 分钟
+23:00:34.858 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:00:36.744 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 141 分钟
+23:01:06.752 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 142 分钟
+23:01:36.758 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 142 分钟
+23:02:06.773 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 143 分钟
+23:02:36.795 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 143 分钟
+23:03:06.809 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 144 分钟
+23:03:36.813 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 144 分钟
+23:04:06.832 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 145 分钟
+23:04:36.832 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 145 分钟
+23:05:06.825 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 146 分钟
+23:05:34.853 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:05:36.841 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 146 分钟
+23:06:06.849 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 147 分钟
+23:06:36.850 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 147 分钟
+23:07:06.852 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 148 分钟
+23:07:36.868 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 148 分钟
+23:08:06.879 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 149 分钟
+23:08:36.869 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 149 分钟
+23:09:06.886 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 150 分钟
+23:09:36.887 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 150 分钟
+23:10:06.902 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 151 分钟
+23:10:34.872 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:10:36.914 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 151 分钟
+23:11:06.937 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 152 分钟
+23:11:36.946 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 152 分钟
+23:12:06.969 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 153 分钟
+23:12:36.986 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 153 分钟
+23:13:06.993 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 154 分钟
+23:13:37.000 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 154 分钟
+23:14:07.002 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 155 分钟
+23:14:37.000 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 155 分钟
+23:15:06.995 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 156 分钟
+23:15:34.880 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:15:37.009 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 156 分钟
+23:16:07.020 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 157 分钟
+23:16:37.028 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 157 分钟
+23:17:07.029 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 158 分钟
+23:17:37.029 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 158 分钟
+23:18:07.031 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 159 分钟
+23:18:37.031 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 159 分钟
+23:19:07.028 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 160 分钟
+23:19:37.043 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 160 分钟
+23:20:07.029 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 161 分钟
+23:20:34.885 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:20:37.028 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 161 分钟
+23:21:07.040 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 162 分钟
+23:21:37.028 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 162 分钟
+23:22:07.052 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 163 分钟
+23:22:37.067 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 163 分钟
+23:23:07.067 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 164 分钟
+23:23:37.075 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 164 分钟
+23:24:07.102 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 165 分钟
+23:24:37.114 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 165 分钟
+23:25:07.126 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 166 分钟
+23:25:34.917 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:25:37.130 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 166 分钟
+23:26:07.105 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 167 分钟
+23:26:37.115 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 167 分钟
+23:27:07.131 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 168 分钟
+23:27:37.133 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 168 分钟
+23:28:07.144 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 169 分钟
+23:28:37.158 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 169 分钟
+23:29:07.272 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 170 分钟
+23:29:37.281 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 170 分钟
+23:30:07.288 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 171 分钟
+23:30:34.935 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:30:37.304 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 171 分钟
+23:31:07.327 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 172 分钟
+23:31:37.308 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 172 分钟
+23:32:07.326 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 173 分钟
+23:32:37.345 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 173 分钟
+23:33:07.359 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 174 分钟
+23:33:37.371 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 174 分钟
+23:34:07.370 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 175 分钟
+23:34:37.386 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 175 分钟
+23:35:07.392 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 176 分钟
+23:35:34.956 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:35:37.392 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 176 分钟
+23:36:07.406 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 177 分钟
+23:36:37.420 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 177 分钟
+23:37:07.436 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 178 分钟
+23:37:37.445 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 178 分钟
+23:38:07.451 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 179 分钟
+23:38:37.468 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 179 分钟
+23:39:07.498 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 180 分钟
+23:39:37.572 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 180 分钟
+23:40:07.584 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 181 分钟
+23:40:34.969 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:40:37.558 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 181 分钟
+23:41:07.578 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 182 分钟
+23:41:37.574 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 182 分钟
+23:42:07.601 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 183 分钟
+23:42:37.600 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 183 分钟
+23:43:07.610 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 184 分钟
+23:43:37.619 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 184 分钟
+23:44:07.645 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 185 分钟
+23:44:37.648 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 185 分钟
+23:45:07.661 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 186 分钟
+23:45:34.978 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:45:37.659 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 186 分钟
+23:46:07.674 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 187 分钟
+23:46:37.676 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 187 分钟
+23:47:07.717 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 188 分钟
+23:47:37.745 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 188 分钟
+23:48:07.766 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 189 分钟
+23:48:37.783 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 189 分钟
+23:49:07.807 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 190 分钟
+23:49:37.805 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 190 分钟
+23:50:07.823 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 191 分钟
+23:50:35.022 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:50:37.841 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 191 分钟
+23:51:07.867 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 192 分钟
+23:51:37.872 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 192 分钟
+23:52:07.910 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 193 分钟
+23:52:37.925 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 193 分钟
+23:53:07.920 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 194 分钟
+23:53:37.935 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 194 分钟
+23:54:07.943 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 195 分钟
+23:54:37.943 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 195 分钟
+23:55:07.964 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 196 分钟
+23:55:35.041 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+23:55:37.957 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 196 分钟
+23:56:07.981 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 197 分钟
+23:56:37.983 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 197 分钟
+23:57:08.007 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 198 分钟
+23:57:38.008 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 198 分钟
+23:58:07.990 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 199 分钟
+23:58:37.987 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 199 分钟
+23:59:08.000 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 200 分钟
+23:59:37.994 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 200 分钟
+00:00:08.011 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 201 分钟
+00:00:35.046 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:00:38.011 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 201 分钟
+00:01:08.002 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 202 分钟
+00:01:38.002 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 202 分钟
+00:02:08.010 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 203 分钟
+00:02:38.018 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 203 分钟
+00:03:08.018 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 204 分钟
+00:03:38.043 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 204 分钟
+00:04:08.041 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 205 分钟
+00:04:38.071 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 205 分钟
+00:05:08.072 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 206 分钟
+00:05:35.049 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:05:38.073 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 206 分钟
+00:06:08.062 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 207 分钟
+00:06:38.085 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 207 分钟
+00:07:08.099 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 208 分钟
+00:07:38.095 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 208 分钟
+00:08:08.114 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 209 分钟
+00:08:38.113 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 209 分钟
+00:09:08.127 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 210 分钟
+00:09:38.142 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 210 分钟
+00:10:08.159 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 211 分钟
+00:10:35.070 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:10:38.182 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 211 分钟
+00:11:08.176 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 212 分钟
+00:11:38.172 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 212 分钟
+00:12:08.175 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 213 分钟
+00:12:38.203 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 213 分钟
+00:13:08.200 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 214 分钟
+00:13:38.198 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 214 分钟
+00:14:08.194 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 215 分钟
+00:14:38.190 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 215 分钟
+00:15:08.194 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 216 分钟
+00:15:35.087 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:15:38.209 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 216 分钟
+00:16:08.225 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 217 分钟
+00:16:38.240 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 217 分钟
+00:17:08.239 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 218 分钟
+00:17:38.251 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 218 分钟
+00:18:08.255 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 219 分钟
+00:18:38.267 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 219 分钟
+00:19:08.273 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 220 分钟
+00:19:38.281 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 220 分钟
+00:20:08.286 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 221 分钟
+00:20:35.091 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:20:38.304 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 221 分钟
+00:21:08.311 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 222 分钟
+00:21:38.316 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 222 分钟
+00:22:08.334 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 223 分钟
+00:22:38.351 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 223 分钟
+00:23:08.353 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 224 分钟
+00:23:38.350 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 224 分钟
+00:24:08.363 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 225 分钟
+00:24:38.362 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 225 分钟
+00:25:08.368 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 226 分钟
+00:25:35.096 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:25:38.380 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 226 分钟
+00:26:08.398 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 227 分钟
+00:26:38.418 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 227 分钟
+00:27:08.412 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 228 分钟
+00:27:38.431 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 228 分钟
+00:28:08.450 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 229 分钟
+00:28:38.444 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 229 分钟
+00:29:08.444 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 230 分钟
+00:29:38.444 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 230 分钟
+00:30:08.456 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 231 分钟
+00:30:35.110 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:30:38.442 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 231 分钟
+00:31:08.456 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 232 分钟
+00:31:38.456 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 232 分钟
+00:32:08.460 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 233 分钟
+00:32:38.467 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 233 分钟
+00:33:08.471 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 234 分钟
+00:33:38.475 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 234 分钟
+00:34:08.486 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 235 分钟
+00:34:38.486 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 235 分钟
+00:35:08.485 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 236 分钟
+00:35:35.104 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:35:38.487 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 236 分钟
+00:36:08.495 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 237 分钟
+00:36:38.502 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 237 分钟
+00:37:08.500 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 238 分钟
+00:37:38.501 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 238 分钟
+00:38:08.499 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 239 分钟
+00:38:38.501 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 239 分钟
+00:39:08.500 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 240 分钟
+00:39:38.515 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 240 分钟
+00:40:08.527 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 241 分钟
+00:40:35.108 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:40:38.525 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 241 分钟
+00:41:08.523 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 242 分钟
+00:41:38.542 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 242 分钟
+00:42:08.555 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 243 分钟
+00:42:38.575 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 243 分钟
+00:43:08.584 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 244 分钟
+00:43:38.594 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 244 分钟
+00:44:08.593 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 245 分钟
+00:44:38.590 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 245 分钟
+00:45:08.588 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 246 分钟
+00:45:35.150 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:45:38.581 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 246 分钟
+00:46:08.579 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 247 分钟
+00:46:38.569 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 247 分钟
+00:47:08.574 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 248 分钟
+00:47:38.596 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 248 分钟
+00:48:08.592 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 249 分钟
+00:48:38.604 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 249 分钟
+00:49:08.618 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 250 分钟
+00:49:38.634 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 250 分钟
+00:50:08.651 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 251 分钟
+00:50:35.155 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:50:38.653 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 251 分钟
+00:51:08.652 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 252 分钟
+00:51:38.650 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 252 分钟
+00:52:08.667 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 253 分钟
+00:52:38.667 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 253 分钟
+00:53:08.686 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 254 分钟
+00:53:38.697 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 254 分钟
+00:54:08.714 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 255 分钟
+00:54:38.697 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 255 分钟
+00:55:08.711 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 256 分钟
+00:55:35.161 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+00:55:38.727 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 256 分钟
+00:56:08.744 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 257 分钟
+00:56:38.761 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 257 分钟
+00:57:08.774 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 258 分钟
+00:57:38.792 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 258 分钟
+00:58:08.812 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 259 分钟
+00:58:38.792 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 259 分钟
+00:59:08.809 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 260 分钟
+00:59:38.825 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 260 分钟
+01:00:08.838 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 261 分钟
+01:00:35.156 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:00:38.838 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 261 分钟
+01:01:08.839 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 262 分钟
+01:01:38.853 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 262 分钟
+01:02:08.883 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 263 分钟
+01:02:38.900 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 263 分钟
+01:03:08.914 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 264 分钟
+01:03:38.923 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 264 分钟
+01:04:08.932 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 265 分钟
+01:04:38.942 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 265 分钟
+01:05:08.937 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 266 分钟
+01:05:35.179 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:05:38.939 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 266 分钟
+01:06:08.946 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 267 分钟
+01:06:38.948 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 267 分钟
+01:07:08.963 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 268 分钟
+01:07:38.979 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 268 分钟
+01:08:08.993 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 269 分钟
+01:08:39.014 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 269 分钟
+01:09:09.028 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 270 分钟
+01:09:39.043 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 270 分钟
+01:10:09.061 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 271 分钟
+01:10:35.175 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:10:39.073 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 271 分钟
+01:11:09.089 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 272 分钟
+01:11:39.097 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 272 分钟
+01:12:09.085 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 273 分钟
+01:12:39.082 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 273 分钟
+01:13:09.086 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 274 分钟
+01:13:39.085 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 274 分钟
+01:14:09.087 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 275 分钟
+01:14:39.084 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 275 分钟
+01:15:09.079 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 276 分钟
+01:15:35.185 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:15:39.082 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 276 分钟
+01:16:09.080 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 277 分钟
+01:16:39.084 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 277 分钟
+01:17:09.096 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 278 分钟
+01:17:39.110 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 278 分钟
+01:18:09.118 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 279 分钟
+01:18:39.110 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 279 分钟
+01:19:09.123 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 280 分钟
+01:19:39.129 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 280 分钟
+01:20:09.135 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 281 分钟
+01:20:35.209 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:20:39.150 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 281 分钟
+01:21:09.158 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 282 分钟
+01:21:39.161 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 282 分钟
+01:22:09.157 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 283 分钟
+01:22:39.159 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 283 分钟
+01:23:09.158 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 284 分钟
+01:23:39.179 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 284 分钟
+01:24:09.186 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 285 分钟
+01:24:39.209 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 285 分钟
+01:25:09.202 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 286 分钟
+01:25:35.241 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:25:39.204 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 286 分钟
+01:26:09.219 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 287 分钟
+01:26:39.225 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 287 分钟
+01:27:09.235 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 288 分钟
+01:27:39.247 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 288 分钟
+01:28:09.267 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 289 分钟
+01:28:39.270 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 289 分钟
+01:29:09.280 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 290 分钟
+01:29:39.295 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 290 分钟
+01:30:09.301 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 291 分钟
+01:30:35.261 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:30:39.312 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 291 分钟
+01:31:09.327 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 292 分钟
+01:31:39.343 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 292 分钟
+01:32:09.357 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 293 分钟
+01:32:39.374 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 293 分钟
+01:33:09.373 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 294 分钟
+01:33:39.380 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 294 分钟
+01:34:09.390 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 295 分钟
+01:34:39.409 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 295 分钟
+01:35:09.414 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 296 分钟
+01:35:35.260 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:35:39.428 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 296 分钟
+01:36:09.427 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 297 分钟
+01:36:39.429 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 297 分钟
+01:37:09.428 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 298 分钟
+01:37:39.429 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 298 分钟
+01:38:09.448 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 299 分钟
+01:38:39.454 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 299 分钟
+01:39:09.466 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 300 分钟
+01:39:39.465 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 300 分钟
+01:40:09.464 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 301 分钟
+01:40:35.269 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:40:39.461 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 301 分钟
+01:41:09.472 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 302 分钟
+01:41:39.480 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 302 分钟
+01:42:09.480 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 303 分钟
+01:42:39.496 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 303 分钟
+01:43:09.499 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 304 分钟
+01:43:39.495 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 304 分钟
+01:44:09.505 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 305 分钟
+01:44:39.513 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 305 分钟
+01:45:09.524 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 306 分钟
+01:45:35.261 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:45:39.510 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 306 分钟
+01:46:09.512 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 307 分钟
+01:46:39.512 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 307 分钟
+01:47:09.512 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 308 分钟
+01:47:39.510 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 308 分钟
+01:48:09.509 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 309 分钟
+01:48:39.509 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 309 分钟
+01:49:09.506 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 310 分钟
+01:49:39.506 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 310 分钟
+01:50:09.508 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 311 分钟
+01:50:35.257 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:50:39.508 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 311 分钟
+01:51:09.512 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 312 分钟
+01:51:39.523 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 312 分钟
+01:52:09.522 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 313 分钟
+01:52:39.530 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 313 分钟
+01:53:09.534 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 314 分钟
+01:53:39.551 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 314 分钟
+01:54:09.568 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 315 分钟
+01:54:39.571 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 315 分钟
+01:55:09.575 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 316 分钟
+01:55:35.270 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+01:55:39.566 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 316 分钟
+01:56:09.567 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 317 分钟
+01:56:39.571 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 317 分钟
+01:57:09.549 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 318 分钟
+01:57:39.568 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 318 分钟
+01:58:09.563 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 319 分钟
+01:58:39.564 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 319 分钟
+01:59:09.576 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 320 分钟
+01:59:39.580 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 320 分钟
+02:00:09.580 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 321 分钟
+02:00:35.255 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+02:00:39.597 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 321 分钟
+02:01:09.614 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 322 分钟
+02:01:39.633 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 322 分钟
+02:02:09.643 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 323 分钟
+02:02:39.644 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 323 分钟
+02:03:09.651 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 324 分钟
+02:03:39.650 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 324 分钟
+02:04:09.656 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 325 分钟
+02:04:39.639 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 325 分钟
+02:05:09.641 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 326 分钟
+02:05:35.273 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+02:05:39.641 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 326 分钟
+02:06:09.639 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 327 分钟
+02:06:39.640 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 327 分钟
+02:07:09.638 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 328 分钟
+02:07:39.637 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 328 分钟
+02:08:09.637 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 329 分钟
+02:08:39.635 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 329 分钟
+02:09:09.639 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 330 分钟
+02:09:39.639 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 330 分钟
+02:10:09.633 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 331 分钟
+02:10:35.283 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+02:10:39.636 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 331 分钟
+02:11:09.634 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 332 分钟
+02:11:39.634 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 332 分钟
+02:12:09.649 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 333 分钟
+02:12:39.650 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 333 分钟
+02:13:09.632 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 334 分钟
+02:13:39.635 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 334 分钟
+02:14:09.645 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 335 分钟
+02:14:39.665 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 335 分钟
+02:15:09.677 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 336 分钟
+02:15:35.267 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+02:15:39.685 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 336 分钟
+02:16:09.690 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 337 分钟
+02:16:39.684 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 337 分钟
+02:17:09.690 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 338 分钟
+02:17:39.681 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 338 分钟
+02:18:09.680 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 339 分钟
+02:18:39.696 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 339 分钟
+02:19:09.724 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 340 分钟
+02:19:39.748 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 340 分钟
+02:20:09.746 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 341 分钟
+02:20:35.267 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+02:20:39.762 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 341 分钟
+02:21:09.775 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 342 分钟
+02:21:39.792 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 342 分钟
+02:22:09.790 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 343 分钟
+02:22:39.807 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 343 分钟
+02:23:09.812 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 344 分钟
+02:23:39.820 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 344 分钟
+02:24:09.836 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 345 分钟
+02:24:39.842 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 345 分钟
+02:25:09.853 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 346 分钟
+02:25:35.286 - INFO - [periodic_cleanup:708] - 清理任务执行完成. 活跃请求: 0
+02:25:39.865 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 346 分钟
+02:26:09.842 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 347 分钟
+02:26:39.852 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 347 分钟
+02:27:09.867 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 348 分钟
+02:27:39.883 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 348 分钟
+02:28:09.902 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 349 分钟
+02:28:39.887 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 349 分钟
+02:29:09.901 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 350 分钟
+02:29:39.899 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 350 分钟
+02:30:09.911 - WARNING - [send_alert:660] - 系统告警: 浏览器已断线 351 分钟
+02:30:10.925 - INFO - [lifespan:1598] - 生命周期: 服务器正在关闭。正在取消 12 个后台任务...
+02:30:10.932 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-4' coro=<MonitoringAlerts.check_system_health() running at D:\fd\lmarena-proxy-server\proxy_server.py:578> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+02:30:10.934 - INFO - [lifespan:1604] - 生命周期: 正在取消任务: <Task pending name='Task-3' coro=<periodic_cleanup() running at D:\fd\lmarena-proxy-server\proxy_server.py:713> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+02:30:10.935 - INFO - [lifespan:1610] - 生命周期: 等待 2 个已取消的任务完成...
+02:30:10.936 - INFO - [lifespan:1616] - 生命周期: 任务 0 正常完成
+02:30:10.937 - INFO - [lifespan:1616] - 生命周期: 任务 1 正常完成
+02:30:10.937 - INFO - [lifespan:1618] - 生命周期: 所有后台任务已取消。关闭完成。
