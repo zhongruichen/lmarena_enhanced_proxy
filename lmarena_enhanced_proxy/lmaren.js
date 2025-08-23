@@ -810,81 +810,90 @@ function clearAllSessionData() {
             try {
                 const message = JSON.parse(event.data);
 
-                // 处理心跳 ping
-                if (message.type === 'ping') {
-                    console.log('[Injector] 💓 Received ping, sending pong...');
-                    socket.send(JSON.stringify({
-                        type: 'pong',
-                        timestamp: message.timestamp
-                    }));
-                    return;
-                }
+                // Use a switch statement for clarity and to handle new message types
+                switch (message.type) {
+                    case 'ping':
+                        console.log('[Injector] 💓 Received ping, sending pong...');
+                        socket.send(JSON.stringify({ type: 'pong', timestamp: message.timestamp }));
+                        break;
 
-                if (message.type === 'refresh_models') {
-                    console.log('[Injector] 🔄 Received model refresh request');
-                    sendModelRegistry();
-                    return;
-                }
+                    case 'refresh_models':
+                        console.log('[Injector] 🔄 Received model refresh request');
+                        sendModelRegistry();
+                        break;
 
-                if (message.type === 'model_registry_ack') {
-                    console.log(`[Injector] ✅ Model registry updated with ${message.count} models`);
-                    modelRegistrySent = true;
-                    return;
-                }
+                    case 'model_registry_ack':
+                        console.log(`[Injector] ✅ Model registry updated with ${message.count} models`);
+                        modelRegistrySent = true;
+                        break;
 
-                if (message.type === 'reconnection_ack') {
-                    console.log(`[Injector] 🤝 Reconnection acknowledged: ${message.message}`);
-                    if (message.pending_request_ids && message.pending_request_ids.length > 0) {
-                        console.log(`[Injector] 📋 Server has ${message.pending_request_ids.length} pending requests waiting`);
-                    }
-                    return;
-                }
+                    case 'reconnection_ack':
+                        console.log(`[Injector] 🤝 Reconnection acknowledged: ${message.message}`);
+                        if (message.pending_request_ids && message.pending_request_ids.length > 0) {
+                            console.log(`[Injector] 📋 Server has ${message.pending_request_ids.length} pending requests waiting`);
+                        }
+                        break;
 
-                if (message.type === 'restoration_ack') {
-                    console.log(`[Injector] 🔄 Request restoration acknowledged: ${message.message}`);
-                    console.log(`[Injector] ✅ ${message.restored_count} request channels restored`);
-                    return;
-                }
+                    case 'restoration_ack':
+                        console.log(`[Injector] 🔄 Request restoration acknowledged: ${message.message}`);
+                        console.log(`[Injector] ✅ ${message.restored_count} request channels restored`);
+                        break;
 
-                // Handle abort request from server when client disconnects
-                if (message.type === 'abort_request') {
-                    const requestId = message.request_id;
-                    console.log(`[Injector] 🛑 Received abort request for ${requestId}`);
+                    case 'abort_request':
+                        const requestId = message.request_id;
+                        console.log(`[Injector] 🛑 Received abort request for ${requestId}`);
+                        const controller = activeFetchControllers.get(requestId);
+                        if (controller) {
+                            controller.abort();
+                            activeFetchControllers.delete(requestId);
+                            console.log(`[Injector] ✅ Aborted fetch request ${requestId}`);
+                        } else {
+                            console.log(`[Injector] ⚠️ No active fetch found for request ${requestId}`);
+                        }
+                        break;
 
-                    const controller = activeFetchControllers.get(requestId);
-                    if (controller) {
-                        controller.abort();
-                        activeFetchControllers.delete(requestId);
-                        console.log(`[Injector] ✅ Aborted fetch request ${requestId}`);
-                    }
-                    return;
-                }
-
-                const { type } = message;
-
-                switch (type) {
                     case 'warmup_session':
-                        console.log(`[Injector] 🔥 Received warmup session request ${message.request_id}.`);
-                        await executeFetchAndStreamBack(message, 'warmup_session');
+                        console.log(`[Injector] 🔥 Received warmup request for model: ${message.payload.modelName}`);
+                        await handleWarmupSession(message.payload.modelName);
                         break;
-                    case 'retry_request':
-                        console.log(`[Injector] 🔁 Received retry request ${message.request_id}.`);
-                        await handleRetryRequest(message);
-                        break;
-                    default: // Handles original request format for backward compatibility
+
+                    // This handles both new requests and retries, as the client-side logic is identical.
+                    // The server is responsible for constructing the correct payload (with or without session_id).
+                    case 'chat_request':
+                    case 'retry_request': {
                         const { request_id, payload, files_to_upload } = message;
+
                         if (!request_id || !payload) {
-                            console.error("[Injector] Invalid message from server:", message);
+                            console.error("[Injector] Invalid chat/retry message from server:", message);
                             return;
                         }
+
                         if (files_to_upload && files_to_upload.length > 0) {
+                            const typeText = message.type === 'retry_request' ? 'retry upload' : 'upload';
+                            console.log(`[Injector] ⬆️ Received ${typeText} request ${request_id} with ${files_to_upload.length} file(s).`);
                             await handleUploadAndChat(request_id, payload, files_to_upload);
                         } else {
-                            await executeFetchAndStreamBack({ request_id, payload }, 'chat');
+                            const typeText = message.type === 'retry_request' ? 'retry' : 'standard';
+                            console.log(`[Injector] ⬇️ Received ${typeText} text request ${request_id}. Firing fetch.`);
+                            await executeFetchAndStreamBack(request_id, payload);
                         }
                         break;
-                }
+                    }
 
+                    default:
+                        // Fallback for any old message format that doesn't have a 'type'
+                        if (message.request_id && message.payload) {
+                            console.warn('[Injector] Received message in a legacy format. Assuming it is a chat_request.');
+                            const { request_id, payload, files_to_upload } = message;
+                             if (files_to_upload && files_to_upload.length > 0) {
+                                 await handleUploadAndChat(request_id, payload, files_to_upload);
+                             } else {
+                                 await executeFetchAndStreamBack(request_id, payload);
+                             }
+                        } else {
+                            console.warn("[Injector] Received unknown message type from server:", message.type || message);
+                        }
+                }
             } catch (error) {
                 console.error("[Injector] Error processing message from server:", error);
             }
@@ -1241,13 +1250,95 @@ async function handleRateLimitRefresh() {
         }
     }
 
-    async function executeFetchAndStreamBack(message, requestType = 'chat') {
-        const { request_id: requestId, payload, model_name } = message;
+async function handleWarmupSession(modelName) {
+    try {
+        console.log(`[Injector] 🔥 Warming up session for ${modelName}...`);
+
+        // 1. Construct a minimal payload to initiate a session.
+        const warmupPayload = {
+            model: modelName,
+            messages: [{ role: "user", content: "Hello" }], // A simple, harmless prompt
+            stream: true,
+            temperature: 1,
+            top_p: 1
+        };
+
+        // A unique ID for auth checking, not a real request ID.
+        const authCheckId = `warmup-${modelName}-${Date.now()}`;
+        await ensureAuthenticationReady(authCheckId);
+
+        const response = await fetch(`https://lmarena.ai${TARGET_API_PATH}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain;charset=UTF-8',
+                'Accept': '*/*',
+            },
+            body: JSON.stringify(warmupPayload),
+        });
+
+        if (!response.ok || !response.body) {
+            const errorText = await response.text();
+            // Don't send error back to server, just log it.
+            console.error(`[Injector] ❌ Warmup fetch failed for ${modelName} with status ${response.status}: ${errorText}`);
+            return;
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let sessionId = null;
+
+        // Process the stream to find the session_id
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+                console.warn(`[Injector] ⚠️ Stream ended for ${modelName} warmup without finding a session_id.`);
+                break;
+            }
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n').filter(line => line.trim().startsWith('data:'));
+
+            for (const line of lines) {
+                try {
+                    // Remove 'data:' prefix and parse JSON
+                    const data = JSON.parse(line.substring(5));
+                    if (data.session_id) {
+                        sessionId = data.session_id;
+                        console.log(`[Injector] ✅ Captured session_id ${sessionId} for ${modelName}`);
+
+                        // Send the captured session ID back to the proxy server
+                        if (socket && socket.readyState === WebSocket.OPEN) {
+                            socket.send(JSON.stringify({
+                                type: 'session_created',
+                                payload: {
+                                    modelName: modelName,
+                                    sessionId: sessionId
+                                }
+                            }));
+                        }
+
+                        // We have what we need, so we cancel the rest of the stream.
+                        await reader.cancel();
+                        console.log(`[Injector] 🔥 Warmup stream for ${modelName} cancelled after capturing session_id.`);
+                        return; // Exit the function and the loop.
+                    }
+                } catch (e) {
+                    // Ignore chunks that are not valid JSON (e.g., [DONE] message)
+                }
+            }
+        }
+    } catch (error) {
+        console.error(`[Injector] ❌ Unhandled error during warmup for model ${modelName}:`, error);
+    }
+}
+
+    async function executeFetchAndStreamBack(requestId, payload) {
+        // Create abort controller for this request
         const abortController = new AbortController();
         activeFetchControllers.set(requestId, abortController);
 
         try {
-            console.log(`[Injector] 🚀 Starting fetch for request ${requestId} (Type: ${requestType})`);
+            console.log(`[Injector] 🚀 Starting fetch for request ${requestId}`);
 
             // Ensure authentication is ready before making request
             await ensureAuthenticationReady(requestId);
@@ -1337,26 +1428,6 @@ async function handleRateLimitRefresh() {
                 if (done) {
                     console.log(`[Injector] ✅ Stream finished for request ${requestId}.`);
                     sendToServer(requestId, "[DONE]");
-
-                    if (requestType === 'warmup_session') {
-                        console.log(`[Injector] ✨ Warmup session ${requestId} completed.`);
-                        const session_id = payload.id;
-                        const message_id = payload.modelAMessageId;
-
-                        if (session_id && message_id && model_name) {
-                            const sessionCreatedMessage = {
-                                type: 'session_created',
-                                session_id: session_id,
-                                message_id: message_id,
-                                model_name: model_name,
-                                request_id: requestId
-                            };
-                            socket.send(JSON.stringify(sessionCreatedMessage));
-                            console.log(`[Injector] ✅ Sent session_created for ${model_name} (session: ${session_id.substring(0, 8)}...).`);
-                        } else {
-                            console.error(`[Injector] ❌ Could not send session_created confirmation. Missing data.`, { session_id, message_id, model_name });
-                        }
-                    }
                     break;
                 }
 
@@ -1434,77 +1505,6 @@ async function handleRateLimitRefresh() {
             socket.send(JSON.stringify(message));
         } else {
             console.error("[Injector] Cannot send data, socket is not open.");
-        }
-    }
-
-    async function handleRetryRequest(message) {
-        const { request_id: requestId, payload } = message;
-        const abortController = new AbortController();
-        activeFetchControllers.set(requestId, abortController);
-
-        try {
-            console.log(`[Injector] 🚀 Starting retry fetch for request ${requestId}`);
-
-            // Authentication should already be ready for a retry.
-            await ensureAuthenticationReady(requestId);
-
-            const response = await fetch(`https://lmarena.ai${TARGET_API_PATH}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=UTF-8',
-                    'Accept': '*/*',
-                },
-                body: JSON.stringify(payload), // The payload is for a retry action
-                signal: abortController.signal
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Retry fetch failed with status ${response.status}: ${errorText}`);
-            }
-
-            if (!response.body) {
-                throw new Error(`No response body received for retry request ${requestId}`);
-            }
-
-            console.log(`[Injector] 📡 Starting to stream response for retry request ${requestId}`);
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-
-            while (true) {
-                if (abortController.signal.aborted) {
-                    await reader.cancel();
-                    break;
-                }
-
-                const { value, done } = await reader.read();
-                if (done) {
-                    console.log(`[Injector] ✅ Stream finished for retry request ${requestId}.`);
-                    sendToServer(requestId, "[DONE]");
-                    break;
-                }
-
-                const chunk = decoder.decode(value);
-                const lines = chunk.split('\n').filter(line => line.trim() !== '');
-                for (const line of lines) {
-                    if (abortController.signal.aborted) {
-                        await reader.cancel();
-                        return;
-                    }
-                    sendToServer(requestId, line);
-                }
-            }
-
-        } catch (error) {
-            if (error.name === 'AbortError') {
-                console.log(`[Injector] Retry fetch aborted for request ${requestId}`);
-            } else {
-                console.error(`[Injector] ❌ Error during retry fetch for request ${requestId}:`, error);
-                sendToServer(requestId, JSON.stringify({ error: error.message }));
-                sendToServer(requestId, "[DONE]");
-            }
-        } finally {
-            activeFetchControllers.delete(requestId);
         }
     }
 

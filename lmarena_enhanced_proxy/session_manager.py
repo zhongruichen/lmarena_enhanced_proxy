@@ -43,47 +43,39 @@ class SessionManager:
         async with self._locks[model_name]:
             self._session_pools[model_name].append(session)
             logging.info(f"Added new session for '{model_name}'. Pool size: {len(self._session_pools[model_name])}")
-            # If there are waiting requests, notify one.
             if not self._request_queues[model_name].empty():
-                 await self._request_queues[model_name].put(None) # Sentinel value to wake up a waiter
+                 try:
+                    self._request_queues[model_name].put_nowait(None)
+                 except asyncio.QueueFull:
+                    logging.warning(f"Request queue for {model_name} is full, cannot signal waiter.")
 
-    async def acquire_session(self, model_name: str, timeout: int = 60) -> Optional[Session]:
+    async def acquire_session(self, model_name: str, timeout: int = 120) -> Optional[Session]:
         """Acquires an available session from the pool for a given model, waiting if necessary."""
         if model_name not in self._locks:
-            logging.error(f"Attempted to acquire session for unregistered model '{model_name}'")
-            return None
+            await self.register_model(model_name)
+            logging.warning(f"Acquiring session for model '{model_name}' which was not pre-registered.")
 
-        # First, try to get a session without waiting
-        async with self._locks[model_name]:
-            for session in self._session_pools.get(model_name, []):
-                if session.status == SessionStatus.AVAILABLE:
-                    session.status = SessionStatus.IN_USE
-                    session.last_used_time = time.time()
-                    logging.info(f"Acquired session {session.session_id} for model '{model_name}'")
-                    return session
-
-        # If no session was available, wait in the queue
-        logging.info(f"No available sessions for '{model_name}', entering wait queue.")
-        try:
-            # This will raise TimeoutError if the timeout is reached
-            await asyncio.wait_for(self._request_queues[model_name].get(), timeout=timeout)
-
-            # When woken up, try to acquire again. This should now succeed.
+        start_time = time.time()
+        while time.time() - start_time < timeout:
             async with self._locks[model_name]:
                 for session in self._session_pools.get(model_name, []):
                     if session.status == SessionStatus.AVAILABLE:
                         session.status = SessionStatus.IN_USE
                         session.last_used_time = time.time()
-                        logging.info(f"Acquired session {session.session_id} for model '{model_name}' after waiting.")
+                        logging.info(f"Acquired session {session.session_id} for model '{model_name}'")
                         return session
 
-            # This should ideally not be reached if logic is correct
-            logging.error(f"Woke up for model '{model_name}' but no session was available.")
-            return None
+            logging.info(f"No available sessions for '{model_name}', entering wait queue. Timeout: {timeout - (time.time() - start_time):.1f}s")
+            try:
+                await asyncio.wait_for(self._request_queues[model_name].get(), timeout=timeout - (time.time() - start_time))
+                if self._request_queues[model_name].qsize() > 0:
+                    self._request_queues[model_name].task_done()
+            except asyncio.TimeoutError:
+                logging.warning(f"Request for model '{model_name}' timed out after waiting in queue.")
+                return None
 
-        except asyncio.TimeoutError:
-            logging.warning(f"Request for model '{model_name}' timed out after waiting {timeout}s in queue.")
-            return None
+        logging.error(f"Failed to acquire session for '{model_name}' within the total timeout.")
+        return None
 
     async def release_session(self, session_id: str):
         """Releases a session and notifies a waiting request if any."""
@@ -93,9 +85,11 @@ class SessionManager:
                     if session.session_id == session_id:
                         session.status = SessionStatus.AVAILABLE
                         logging.info(f"Released session {session.session_id} for model '{model_name}'")
-                        # If there are waiting requests, notify one.
                         if not self._request_queues[model_name].empty():
-                            await self._request_queues[model_name].put(None)
+                            try:
+                                self._request_queues[model_name].put_nowait(None)
+                            except asyncio.QueueFull:
+                                pass
                         return
         logging.warning(f"Could not find session {session_id} to release.")
 
@@ -114,13 +108,19 @@ class SessionManager:
         """Returns the status of all session pools."""
         status = {}
         for model_name, pool in self._session_pools.items():
-            status[model_name] = {
+            q_size = self._request_queues[model_name].qsize() if model_name in self._request_queues else 0
+
+            model_status = {
                 SessionStatus.AVAILABLE: 0,
                 SessionStatus.IN_USE: 0,
                 SessionStatus.UNHEALTHY: 0,
                 "total": len(pool),
-                "queue_size": self._request_queues[model_name].qsize() if model_name in self._request_queues else 0
+                "queue_size": q_size
             }
+
             for session in pool:
-                status[model_name][session.status] += 1
+                if session.status in model_status:
+                    model_status[session.status] += 1
+
+            status[model_name] = model_status
         return status

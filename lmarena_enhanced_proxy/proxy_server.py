@@ -1586,6 +1586,7 @@ async def session_warmer():
     global browser_ws, session_manager
 
     # 1. Wait for browser to connect
+    logging.info("Session warmer waiting for browser connection...")
     while not browser_ws:
         await asyncio.sleep(1)
     logging.info("Browser connected, proceeding with session warming.")
@@ -1596,8 +1597,8 @@ async def session_warmer():
             config = json.load(f)
         models_to_warm = config.get("models", [])
         sessions_per_model = config.get("sessions_per_model", 1)
-        initial_prompt = config.get("initial_prompt", "Hi")
-        warmup_delay = config.get("warmup_delay_seconds", 30)
+        initial_prompt = config.get("initial_prompt", "Hello")
+        warmup_delay = config.get("warmup_delay_seconds", 10)
     except Exception as e:
         logging.error(f"Failed to load or parse models_config.json: {e}")
         return
@@ -1607,7 +1608,8 @@ async def session_warmer():
     logging.info("Session warming ready.")
     logging.info(f"Will create {sessions_per_model} sessions for {len(models_to_warm)} models.")
     try:
-        await asyncio.to_thread(input, "Press Enter to continue...")
+        # This will run in a separate thread to avoid blocking the asyncio event loop
+        await asyncio.to_thread(input, "Press Enter to start session warming...")
     except (EOFError, KeyboardInterrupt):
         logging.warning("Startup interrupted by user. Aborting session warming.")
         return
@@ -1615,12 +1617,10 @@ async def session_warmer():
     logging.info(f"Waiting for {warmup_delay} seconds before starting...")
     await asyncio.sleep(warmup_delay)
 
-
     # 4. Start warming
     logging.info("Starting session warming...")
     total_sessions_to_create = len(models_to_warm) * sessions_per_model
 
-    tasks = []
     for model_info in models_to_warm:
         model_name = model_info.get("publicName")
         model_id = model_info.get("id")
@@ -1632,68 +1632,17 @@ async def session_warmer():
             warmup_request_id = f"warmup_{model_name}_{i}"
 
             try:
-                # Create and send the warmup request
                 warmup_req = await warmup_session_request(model_id, model_name, initial_prompt, warmup_request_id)
                 await browser_ws.send_text(json.dumps(warmup_req))
                 logging.info(f"  [{i+1}/{sessions_per_model}] Sent warmup request for {model_name}")
             except Exception as e:
                 logging.error(f"  [{i+1}/{sessions_per_model}] Failed to send warmup request for {model_name}: {e}")
-            await asyncio.sleep(1) # Small delay to avoid overwhelming the browser
+            await asyncio.sleep(2) # Small delay between each request to avoid overwhelming the browser
 
     logging.info("="*60)
     logging.info("Session warming process initiated.")
     logging.info(f"Total sessions requested: {total_sessions_to_create}")
     logging.info("="*60)
-
-# --- New function to create retry payload ---
-def create_lmarena_retry_payload(openai_req: dict, session: Session) -> (dict, list):
-    """
-    Creates the payload for retrying/reusing an existing LMArena session.
-    """
-    files_to_upload = []
-    processed_messages = []
-
-    # Process messages to extract files and clean content
-    for msg in openai_req['messages']:
-        content = msg.get("content", "")
-        new_msg = msg.copy()
-
-        if isinstance(content, list):
-            # Handle official multimodal content array
-            text_parts = []
-            for part in content:
-                if part.get("type") == "text":
-                    text_parts.append(part.get("text", ""))
-                elif part.get("type") == "image_url":
-                    image_url = part.get("image_url", {}).get("url", "")
-                    match = re.match(r"data:(image/\w+);base64,(.*)", image_url)
-                    if match:
-                        mime_type, base64_data = match.groups()
-                        file_ext = mime_type.split('/')[1]
-                        filename = f"upload-{uuid.uuid4()}.{file_ext}"
-                        files_to_upload.append({"fileName": filename, "contentType": mime_type, "data": base64_data})
-            new_msg["content"] = "\n".join(text_parts)
-
-        processed_messages.append(new_msg)
-
-    # The retry payload is simpler. It just needs the new user message content and files.
-    # We assume the last message is the user's prompt.
-    last_user_message = ""
-    if processed_messages and processed_messages[-1].get("role") == "user":
-        last_user_message = processed_messages[-1].get("content", "")
-
-    payload = {
-        "message": {
-            "content": last_user_message,
-            "role": "user",
-            "attachments": [], # Placeholder for future attachment handling
-        },
-        "stream": True,
-        "messageId": session.message_id, # From the warmed-up session
-        "evaluationSessionId": session.session_id, # From the warmed-up session
-    }
-
-    return payload, files_to_upload
 
 
 # --- FastAPI App and Lifespan ---
@@ -1757,8 +1706,7 @@ async def lifespan(app: FastAPI):
     # 启动健康检查任务
     health_check_task = asyncio.create_task(monitoring_alerts.check_system_health())
     background_tasks.add(health_check_task)
-
-    # Start session warmer
+    # 启动会话预热任务
     warmup_task = asyncio.create_task(session_warmer())
     background_tasks.add(warmup_task)
 
@@ -1975,7 +1923,7 @@ async def monitor_websocket(websocket: WebSocket):
 # --- API Handler ---
 @app.post("/v1/chat/completions")
 async def chat_completions(request: Request):
-    global session_manager, request_manager
+    global request_manager
 
     if not browser_ws:
         raise HTTPException(status_code=503, detail="Browser client not connected.")
@@ -1990,7 +1938,7 @@ async def chat_completions(request: Request):
         raise HTTPException(status_code=404, detail=f"Model '{model_name}' not found.")
     model_type = model_info.get("type", "chat")
 
-    # Log request start
+    # 添加请求开始日志
     request_params = {
         "temperature": openai_req.get("temperature"),
         "top_p": openai_req.get("top_p"),
@@ -2000,6 +1948,7 @@ async def chat_completions(request: Request):
     messages = openai_req.get("messages", [])
     log_request_start(request_id, model_name, request_params, messages)
 
+    # 广播到监控客户端
     await broadcast_to_monitors({
         "type": "request_start",
         "request_id": request_id,
@@ -2007,16 +1956,12 @@ async def chat_completions(request: Request):
         "timestamp": time.time()
     })
 
-    # Get a session from the pool
-    session = None
-    try:
-        logging.info(f"API [ID: {request_id}]: Waiting for an available session for model '{model_name}'...")
-        session = await session_manager.get_session(model_name)
-        logging.info(f"API [ID: {request_id}]: Acquired session {session.session_id} for model '{model_name}'.")
+    # Create response queue and add to both systems for compatibility
+    response_queue = asyncio.Queue(maxsize=Config.BACKPRESSURE_QUEUE_SIZE)
+    response_channels[request_id] = response_queue
 
-        # Create response queue and add to persistent manager
-        response_queue = asyncio.Queue(maxsize=Config.BACKPRESSURE_QUEUE_SIZE)
-        response_channels[request_id] = response_queue # For stream_generator compatibility
+    # Add to persistent request manager
+    try:
         persistent_req = await request_manager.add_request(
             request_id=request_id,
             openai_request=openai_req,
@@ -2024,9 +1969,15 @@ async def chat_completions(request: Request):
             model_name=model_name,
             is_streaming=is_streaming
         )
+    except HTTPException:
+        # 并发限制
+        log_request_end(request_id, False, 0, 0, "Too many concurrent requests")
+        raise
 
-        # Create and run the background task to send data to the browser
-        task = asyncio.create_task(send_to_browser_task(request_id, openai_req, session))
+    logging.info(f"API [ID: {request_id}]: Created persistent request for model type '{model_type}'.")
+
+    try:
+        task = asyncio.create_task(send_to_browser_task(request_id, openai_req))
         background_tasks.add(task)
         task.add_done_callback(background_tasks.discard)
 
@@ -2038,54 +1989,74 @@ async def chat_completions(request: Request):
             "Transfer-Encoding": "chunked"
         } if is_streaming else {}
 
-        # Return the streaming response
-        response_generator = stream_generator(request_id, model_name, is_streaming, model_type)
-        return ImmediateStreamingResponse(response_generator, media_type=media_type, headers=headers)
+        logging.info(f"API [ID: {request_id}]: Returning {media_type} response to client.")
 
-    except asyncio.TimeoutError:
-        log_request_end(request_id, False, 0, 0, "Request timed out while waiting for a session.")
-        raise HTTPException(status_code=504, detail="Request timed out while waiting for an available session.")
+        if is_streaming:
+            # Use custom streaming response for immediate flush
+            return ImmediateStreamingResponse(
+                stream_generator(request_id, model_name, is_streaming=is_streaming, model_type=model_type),
+                media_type=media_type,
+                headers=headers
+            )
+        else:
+            # Use regular response for non-streaming
+            return StreamingResponse(
+                stream_generator(request_id, model_name, is_streaming=is_streaming, model_type=model_type),
+                media_type=media_type,
+                headers=headers
+            )
+    except KeyboardInterrupt:
+        # Clean up on keyboard interrupt
+        if request_id in response_channels:
+            del response_channels[request_id]
+        request_manager.complete_request(request_id)
+        raise
     except Exception as e:
-        log_request_end(request_id, False, 0, 0, str(e), traceback.format_exc())
-        logging.error(f"API [ID: {request_id}]: An unexpected error occurred: {e}", exc_info=True)
+        # Clean up both tracking systems
+        if request_id in response_channels:
+            del response_channels[request_id]
+        request_manager.complete_request(request_id)
+        logging.error(f"API [ID: {request_id}]: Exception: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        # CRITICAL: Ensure the session is always released
-        if session:
-            await session_manager.release_session(session.session_id)
-            logging.info(f"API [ID: {request_id}]: Released session {session.session_id} for model '{model_name}'.")
 
 
-async def send_to_browser_task(request_id: str, openai_req: dict, session: Session):
-    """This task runs in the background, sending the request to the browser using a pre-warmed session."""
+async def send_to_browser_task(request_id: str, openai_req: dict):
+    """This task runs in the background, sending the request to the browser."""
     global request_manager
 
     if not browser_ws:
         logging.error(f"TASK [ID: {request_id}]: Cannot send, browser disconnected.")
+        # Mark request as error if browser is not connected
         persistent_req = request_manager.get_request(request_id)
         if persistent_req:
             await persistent_req.response_queue.put({"error": "Browser not connected"})
         return
 
     try:
-        # Use the new function to create a "retry" payload
-        lmarena_payload, files_to_upload = create_lmarena_retry_payload(openai_req, session)
+        lmarena_payload, files_to_upload = create_lmarena_request_body(openai_req)
 
         message_to_browser = {
-            "type": "retry_request", # New message type for the userscript
             "request_id": request_id,
             "payload": lmarena_payload,
             "files_to_upload": files_to_upload
         }
 
-        logging.info(f"TASK [ID: {request_id}]: Sending retry_request for session {session.session_id} to browser.")
+        logging.info(f"TASK [ID: {request_id}]: Sending payload and {len(files_to_upload)} file(s) to browser.")
         await browser_ws.send_text(json.dumps(message_to_browser))
 
+        # Mark as sent to browser in persistent request manager
         request_manager.mark_sent_to_browser(request_id)
         logging.info(f"TASK [ID: {request_id}]: Payload sent and marked as sent to browser.")
 
+    except KeyboardInterrupt:
+        raise
     except Exception as e:
-        logging.error(f"Error creating or sending retry request body: {e}", exc_info=True)
+        logging.error(f"Error creating or sending request body: {e}", exc_info=True)
+
+        # Send error to both tracking systems
+        if request_id in response_channels:
+            await response_channels[request_id].put({"error": f"Failed to process request: {e}"})
+
         persistent_req = request_manager.get_request(request_id)
         if persistent_req:
             await persistent_req.response_queue.put({"error": f"Failed to process request: {e}"})
@@ -2862,6 +2833,14 @@ def get_all_local_ips():
     except:
         pass
     return ips
+
+
+@app.get("/api/sessions/status")
+async def get_session_pool_status():
+    """Gets the current status of the session pools."""
+    if not session_manager:
+        return {}
+    return session_manager.get_pool_status()
 
 
 @app.get("/api/health/detailed")
@@ -3896,6 +3875,16 @@ async def monitor_dashboard():
             </div>
         </div>
 
+        <!-- Session Pool Status -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Session Pool Status</h2>
+            </div>
+            <div id="session-status-container" style="padding: 20px;">
+                <div class="empty-state">Loading session status...</div>
+            </div>
+        </div>
+
         <!-- 请求日志 -->
         <div class="section">
             <div class="section-header">
@@ -4557,7 +4546,7 @@ async function saveNetworkSettings() {
 }
 
 // 保存请求设置
-async def saveRequestSettings() {
+async function saveRequestSettings() {
     try {
         const config = {
             request: {
@@ -4626,7 +4615,59 @@ function displayCurrentUrls(urls) {
         connectWebSocket();
         refreshData();
         loadAlerts();  // 加载历史告警
+        fetchSessionStatus(); // Initial fetch for session status
+        setInterval(fetchSessionStatus, 3000); // Refresh session status every 3 seconds
 
+        async function fetchSessionStatus() {
+            try {
+                const response = await fetch('/api/sessions/status');
+                const data = await response.json();
+                const container = document.getElementById('session-status-container');
+
+                if (Object.keys(data).length === 0) {
+                    container.innerHTML = '<div class="empty-state">No models are being managed by the session pool.</div>';
+                    return;
+                }
+
+                let tableHtml = `
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model Name</th>
+                                    <th>Available</th>
+                                    <th>In Use</th>
+                                    <th>Unhealthy</th>
+                                    <th>Total</th>
+                                    <th>Queue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                for (const modelName in data) {
+                    const status = data[modelName];
+                    tableHtml += `
+                        <tr>
+                            <td>${modelName}</td>
+                            <td>${status.available}</td>
+                            <td>${status.in_use}</td>
+                            <td>${status.unhealthy}</td>
+                            <td>${status.total}</td>
+                            <td>${status.queue_size}</td>
+                        </tr>
+                    `;
+                }
+
+                tableHtml += '</tbody></table></div>';
+                container.innerHTML = tableHtml;
+
+            } catch (error) {
+                console.error('Error fetching session status:', error);
+                const container = document.getElementById('session-status-container');
+                container.innerHTML = '<div class="empty-state" style="color: #dc2626;">Error loading session status.</div>';
+            }
+        }
     </script>
 </body>
 </html>
